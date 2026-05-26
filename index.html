@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="tr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -31,7 +31,6 @@
         --paper: #fbfaf6;
         --ink: #1c1b18;
         --olive: #7d8458;
-        --olive-soft: rgba(125, 132, 88, 0.14);
         --olive-line: rgba(125, 132, 88, 0.23);
         --muted: rgba(28, 27, 24, 0.58);
         --serif: "Boston Angel", Georgia, "Times New Roman", serif;
@@ -75,9 +74,20 @@
         max-width: 100%;
       }
 
-      a {
+      a,
+      button {
         color: inherit;
+        font: inherit;
+      }
+
+      a {
         text-decoration: none;
+      }
+
+      button {
+        border: 0;
+        background: none;
+        cursor: pointer;
       }
 
       .site {
@@ -101,7 +111,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 38px;
+        gap: 34px;
         text-align: center;
       }
 
@@ -111,6 +121,33 @@
 
       .cover-menu {
         width: min(205px, 54vw);
+      }
+
+      .language-switch {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px;
+        border: 1px solid var(--olive-line);
+        border-radius: 999px;
+        background: rgba(255, 255, 253, 0.72);
+      }
+
+      .language-switch button {
+        min-width: 52px;
+        padding: 10px 14px 9px;
+        border-radius: 999px;
+        color: var(--olive);
+        font-family: var(--sans);
+        font-size: 10px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        transition: 180ms ease;
+      }
+
+      .language-switch button.is-active {
+        background: var(--olive);
+        color: var(--paper);
       }
 
       .category-nav-wrap {
@@ -144,10 +181,11 @@
         color: var(--olive);
         background: rgba(255, 255, 253, 0.7);
         font-family: var(--sans);
-        font-size: 10px;
-        letter-spacing: 0.14em;
+        font-size: 9.5px;
+        letter-spacing: 0.13em;
         text-transform: uppercase;
         white-space: nowrap;
+        word-break: keep-all;
         transition: 180ms ease;
       }
 
@@ -179,7 +217,7 @@
         position: absolute;
         inset: 0;
         pointer-events: none;
-        background: linear-gradient(to top, rgba(251,250,246,0.02), rgba(251,250,246,0.02));
+        background: linear-gradient(to top, rgba(251, 250, 246, 0.02), rgba(251, 250, 246, 0.02));
         z-index: -1;
       }
 
@@ -194,16 +232,18 @@
         font-size: 10px;
         letter-spacing: 0.18em;
         text-transform: uppercase;
+        white-space: nowrap;
       }
 
       .section-title {
         margin: 0 0 24px;
         color: var(--olive);
         font-family: var(--script);
-        font-size: clamp(56px, 18vw, 84px);
+        font-size: clamp(44px, 14.5vw, 72px);
         font-weight: 400;
-        line-height: 0.82;
+        line-height: 0.9;
         letter-spacing: -0.05em;
+        white-space: nowrap;
       }
 
       .content {
@@ -277,6 +317,7 @@
         font-size: 11px;
         letter-spacing: 0.16em;
         text-transform: uppercase;
+        white-space: nowrap;
       }
 
       .options-box {
@@ -359,11 +400,13 @@
         object-fit: contain;
       }
 
-      .section-hot-coffee .content {
+      .section-hot-coffee .content,
+      .section-iced-coffee .content {
         max-width: 58%;
       }
 
-      .section-hot-coffee {
+      .section-hot-coffee,
+      .section-iced-coffee {
         padding-bottom: 280px;
       }
 
@@ -373,36 +416,13 @@
         width: 59%;
       }
 
-      .section-hot-coffee .options-box {
-        position: absolute;
-        right: 18px;
-        bottom: 28px;
-        width: 36%;
-        background: transparent;
-        border: none;
-        padding: 0;
-      }
-
-      .section-hot-coffee .extras-list {
-        border-top: 0;
-        padding-top: 0;
-        margin-top: 14px;
-      }
-
-      .section-iced-coffee .content {
-        max-width: 58%;
-      }
-
-      .section-iced-coffee {
-        padding-bottom: 280px;
-      }
-
       .section-iced-coffee .art-main {
         left: -12px;
         bottom: -6px;
         width: 62%;
       }
 
+      .section-hot-coffee .options-box,
       .section-iced-coffee .options-box {
         position: absolute;
         right: 18px;
@@ -413,6 +433,7 @@
         padding: 0;
       }
 
+      .section-hot-coffee .extras-list,
       .section-iced-coffee .extras-list {
         border-top: 0;
         padding-top: 0;
@@ -562,7 +583,7 @@
       .back-cover .overlay {
         position: absolute;
         inset: 0;
-        background: linear-gradient(to top, rgba(247,246,241,0.1), rgba(247,246,241,0.46));
+        background: linear-gradient(to top, rgba(247, 246, 241, 0.1), rgba(247, 246, 241, 0.46));
       }
 
       .back-inner {
@@ -591,7 +612,35 @@
         padding: 8px;
         border: 1px solid var(--olive-line);
         border-radius: 14px;
-        background: rgba(255,255,252,0.7);
+        background: rgba(255, 255, 252, 0.7);
+      }
+
+      @media (max-width: 380px) {
+        .site {
+          width: 100%;
+        }
+
+        .menu-section {
+          padding-inline: 14px;
+        }
+
+        .section-title {
+          font-size: clamp(39px, 13.5vw, 56px);
+        }
+
+        .item-name {
+          font-size: 17px;
+        }
+
+        .item-desc,
+        .extra-row {
+          font-size: 14px;
+        }
+
+        .price {
+          font-size: 12px;
+          min-width: 42px;
+        }
       }
 
       @media (min-width: 430px) {
@@ -619,7 +668,8 @@
           scroll-behavior: auto;
         }
 
-        .category-nav a {
+        .category-nav a,
+        .language-switch button {
           transition: none;
         }
       }
@@ -632,253 +682,220 @@
         <div class="cover-inner">
           <img class="cover-logo" src="./1. sayfa logo.png" alt="arsa Coffee Drink Dessert" />
           <img class="cover-menu" src="./1. sayfa menu.png" alt="Menu" />
+          <div class="language-switch" aria-label="Language selection">
+            <button type="button" class="is-active" data-lang-button="tr">TR</button>
+            <button type="button" data-lang-button="en">ENG</button>
+          </div>
         </div>
       </section>
 
       <nav class="category-nav-wrap" aria-label="Menu categories">
         <div class="category-nav">
-          <a href="#hot-coffee">Hot Coffee</a>
-          <a href="#iced-coffee">Iced Coffee</a>
-          <a href="#hot-drinks">Hot Drinks</a>
-          <a href="#cold-drinks">Cold Drinks</a>
-          <a href="#brewed">Brewed</a>
-          <a href="#matcha">Matcha</a>
-          <a href="#healthy">Healthy</a>
-          <a href="#bowl">Bowl</a>
+          <a href="#hot-coffee" data-i18n="nav.hotCoffee">Sıcak Kahve</a>
+          <a href="#iced-coffee" data-i18n="nav.icedCoffee">Soguk Kahve</a>
+          <a href="#hot-drinks" data-i18n="nav.hotDrinks">Sıcak Içecek</a>
+          <a href="#cold-drinks" data-i18n="nav.coldDrinks">Soguk Içecek</a>
+          <a href="#brewed" data-i18n="nav.brewed">Demleme</a>
+          <a href="#matcha" data-i18n="nav.matcha">Matcha</a>
+          <a href="#healthy" data-i18n="nav.healthy">Saglıklı</a>
+          <a href="#bowl" data-i18n="nav.bowl">Bowl</a>
         </div>
       </nav>
 
       <main>
         <section class="menu-section section-hot-coffee" id="hot-coffee">
           <div class="art-layer">
-            <div class="art art-main">
-              <img src="./sicak kave.png" alt="" loading="lazy" decoding="async" />
-            </div>
+            <div class="art art-main"><img src="./sicak kave.png" alt="" loading="lazy" decoding="async" /></div>
           </div>
-
           <div class="content">
-            <div class="section-meta"><span>02</span><span>Hot Coffee</span></div>
-            <h2 class="section-title">Hot Coffee</h2>
-
+            <div class="section-meta"><span>02</span><span data-i18n="nav.hotCoffee">Sıcak Kahve</span></div>
+            <h2 class="section-title" data-i18n="nav.hotCoffee">Sıcak Kahve</h2>
             <div class="items">
-              <div class="item"><div class="item-copy"><p class="item-name">Espresso</p></div><div class="price">130 / 145</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Americano</p></div><div class="price">160</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Flat White</p></div><div class="price">190</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Cortado</p></div><div class="price">180</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Cappuccino</p></div><div class="price">200</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Latte</p></div><div class="price">180</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Mocha</p></div><div class="price">190</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">White Chocolate Mocha</p></div><div class="price">190</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Caramel Mocha</p></div><div class="price">190</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Macchiato</p></div><div class="price">180</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Caramel Macchiato</p></div><div class="price">190</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Affogato</p></div><div class="price">250</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.espresso">Espresso</p></div><div class="price">130 / 145</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.americano">Americano</p></div><div class="price">160</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.flatWhite">Flat White</p></div><div class="price">190</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.cortado">Cortado</p></div><div class="price">180</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.cappuccino">Cappuccino</p></div><div class="price">200</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.latte">Latte</p></div><div class="price">180</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.mocha">Mocha</p></div><div class="price">190</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.whiteMocha">Beyaz Çikolatalı Mocha</p></div><div class="price">190</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.caramelMocha">Karamelli Mocha</p></div><div class="price">190</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.macchiato">Macchiato</p></div><div class="price">180</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.caramelMacchiato">Karamelli Macchiato</p></div><div class="price">190</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.affogato">Affogato</p></div><div class="price">250</div></div>
             </div>
           </div>
-
-          <div class="options-box">
+          <div class="options-box extras-coffee">
             <div class="options-grid">
               <div>
-                <p class="option-label">Milk Options</p>
-                <p class="option-value">Almond / Oat</p>
+                <p class="option-label" data-i18n="label.milkOptions">Süt Seçenekleri</p>
+                <p class="option-value" data-i18n="value.milkOptions">Badem / Yulaf</p>
               </div>
               <div>
-                <p class="option-label">Syrup Options</p>
-                <p class="option-value">Vanilla / Caramel / Hazelnut</p>
+                <p class="option-label" data-i18n="label.syrupOptions">Şurup Seçenekleri</p>
+                <p class="option-value" data-i18n="value.syrupOptions">Vanilya / Karamel / Fındık</p>
               </div>
             </div>
             <div class="extras-list">
-              <div class="extra-row"><span>Extra Syrup</span><span>+50</span></div>
-              <div class="extra-row"><span>Extra Milk</span><span>+50</span></div>
-              <div class="extra-row"><span>Extra Espresso</span><span>+70</span></div>
+              <div class="extra-row"><span data-i18n="extra.syrup">Şurup</span><span>+15</span></div>
+              <div class="extra-row"><span data-i18n="extra.espresso">Extra Shot Espresso</span><span>+40</span></div>
+              <div class="extra-row"><span data-i18n="extra.plantMilk">Bitkisel Süt</span><span>+40</span></div>
             </div>
           </div>
         </section>
 
         <section class="menu-section section-iced-coffee" id="iced-coffee">
           <div class="art-layer">
-            <div class="art art-main">
-              <img src="./soguk kave.png" alt="" loading="lazy" decoding="async" />
-            </div>
+            <div class="art art-main"><img src="./soguk kave.png" alt="" loading="lazy" decoding="async" /></div>
           </div>
-
           <div class="content">
-            <div class="section-meta"><span>03</span><span>Iced Coffee</span></div>
-            <h2 class="section-title">Iced Coffee</h2>
-
+            <div class="section-meta"><span>03</span><span data-i18n="nav.icedCoffee">Soguk Kahve</span></div>
+            <h2 class="section-title" data-i18n="nav.icedCoffee">Soguk Kahve</h2>
             <div class="items">
-              <div class="item"><div class="item-copy"><p class="item-name">Iced Americano</p></div><div class="price">170</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Aeroccino</p></div><div class="price">185</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Flat White</p></div><div class="price">200</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Iced Cappuccino</p></div><div class="price">230</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Iced Latte</p></div><div class="price">190</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Iced Mocha</p></div><div class="price">210</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Iced White Chocolate Mocha</p></div><div class="price">210</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Iced Caramel Mocha</p></div><div class="price">210</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.icedAmericano">Soguk Americano</p></div><div class="price">170</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.aeroccino">Aeroccino</p></div><div class="price">185</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.icedFlatWhite">Soguk Flat White</p></div><div class="price">200</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.icedCappuccino">Soguk Cappuccino</p></div><div class="price">230</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.icedLatte">Soguk Latte</p></div><div class="price">190</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.icedMocha">Soguk Mocha</p></div><div class="price">210</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.icedWhiteMocha">Soguk Beyaz Çikolatalı Mocha</p></div><div class="price">210</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.icedCaramelMocha">Soguk Karamelli Mocha</p></div><div class="price">210</div></div>
             </div>
           </div>
-
-          <div class="options-box">
+          <div class="options-box extras-coffee">
             <div class="options-grid">
               <div>
-                <p class="option-label">Milk Options</p>
-                <p class="option-value">Almond / Oat</p>
+                <p class="option-label" data-i18n="label.milkOptions">Süt Seçenekleri</p>
+                <p class="option-value" data-i18n="value.milkOptions">Badem / Yulaf</p>
               </div>
               <div>
-                <p class="option-label">Syrup Options</p>
-                <p class="option-value">Vanilla / Caramel / Hazelnut</p>
+                <p class="option-label" data-i18n="label.syrupOptions">Şurup Seçenekleri</p>
+                <p class="option-value" data-i18n="value.syrupOptions">Vanilya / Karamel / Fındık</p>
               </div>
             </div>
             <div class="extras-list">
-              <div class="extra-row"><span>Extra Syrup</span><span>+50</span></div>
-              <div class="extra-row"><span>Extra Milk</span><span>+50</span></div>
-              <div class="extra-row"><span>Extra Espresso</span><span>+70</span></div>
+              <div class="extra-row"><span data-i18n="extra.syrup">Şurup</span><span>+15</span></div>
+              <div class="extra-row"><span data-i18n="extra.espresso">Extra Shot Espresso</span><span>+40</span></div>
+              <div class="extra-row"><span data-i18n="extra.plantMilk">Bitkisel Süt</span><span>+40</span></div>
             </div>
           </div>
         </section>
 
         <section class="menu-section section-hot-drinks" id="hot-drinks">
           <div class="art-layer">
-            <div class="art art-left">
-              <img src="./sicak icecek.png" alt="" loading="lazy" decoding="async" />
-            </div>
-            <div class="art art-right">
-              <img src="./demleme.png" alt="" loading="lazy" decoding="async" />
-            </div>
+            <div class="art art-left"><img src="./sicak icecek.png" alt="" loading="lazy" decoding="async" /></div>
+            <div class="art art-right"><img src="./demleme.png" alt="" loading="lazy" decoding="async" /></div>
           </div>
-
           <div class="content content--wide">
-            <div class="section-meta"><span>04</span><span>Hot Drinks</span></div>
-            <h2 class="section-title">Hot Drinks</h2>
-
+            <div class="section-meta"><span>04</span><span data-i18n="nav.hotDrinks">Sıcak Içecek</span></div>
+            <h2 class="section-title" data-i18n="nav.hotDrinks">Sıcak Içecek</h2>
             <div class="items">
-              <div class="item"><div class="item-copy"><p class="item-name">Chai Tea Latte</p></div><div class="price">200</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Hot Chocolate</p></div><div class="price">240</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Jasmine Green Tea</p></div><div class="price">180</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Winter Tea</p></div><div class="price">180</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Mint Lemon Tea</p></div><div class="price">180</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Chamomile Tea</p></div><div class="price">180</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Hibiscus Tea</p></div><div class="price">200</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.chai">Chai Tea Latte</p></div><div class="price">200</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.hotChocolate">Sıcak Çikolata</p></div><div class="price">240</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.jasmineTea">Yaseminli Yeşil Çay</p></div><div class="price">180</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.winterTea">Kış Çayı</p></div><div class="price">180</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.mintLemonTea">Nane Limon Çayı</p></div><div class="price">180</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.chamomileTea">Papatya Çayı</p></div><div class="price">180</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.hibiscusTea">Hibiskus Çayı</p></div><div class="price">200</div></div>
             </div>
           </div>
         </section>
 
         <section class="menu-section section-cold-drinks" id="cold-drinks">
           <div class="art-layer">
-            <div class="art art-main">
-              <img src="./soguk icecek.png" alt="" loading="lazy" decoding="async" />
-            </div>
+            <div class="art art-main"><img src="./soguk icecek.png" alt="" loading="lazy" decoding="async" /></div>
           </div>
-
           <div class="content content--wide">
-            <div class="section-meta"><span>05</span><span>Cold Drinks</span></div>
-            <h2 class="section-title">Cold Drinks</h2>
-
+            <div class="section-meta"><span>05</span><span data-i18n="nav.coldDrinks">Soguk Içecek</span></div>
+            <h2 class="section-title" data-i18n="nav.coldDrinks">Soguk Içecek</h2>
             <div class="items">
-              <div class="item"><div class="item-copy"><p class="item-name">Lemonade</p></div><div class="price">200</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Strawberry Lemonade</p></div><div class="price">220</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Hibiscus Lemonade</p></div><div class="price">250</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Hibiscus</p></div><div class="price">220</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Cool Lime</p></div><div class="price">220</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Fresh Orange Juice</p></div><div class="price">230</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Frozen</p><p class="item-desc">Mango / Green Apple / Watermelon</p></div><div class="price">250</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Milkshake</p><p class="item-desc">Vanilla / Chocolate / Strawberry</p></div><div class="price">230</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Churchill</p></div><div class="price">125</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Sparkling Water</p></div><div class="price">120</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Water</p></div><div class="price">50</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.lemonade">Limonata</p></div><div class="price">200</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.strawberryLemonade">Çilekli Limonata</p></div><div class="price">220</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.hibiscusLemonade">Hibiskus Limonata</p></div><div class="price">250</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.hibiscus">Hibiskus</p></div><div class="price">220</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.coolLime">Cool Lime</p></div><div class="price">220</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.orangeJuice">Taze Portakal Suyu</p></div><div class="price">230</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.frozen">Frozen</p><p class="item-desc" data-i18n="desc.frozen">Mango / Yeşil Elma / Karpuz</p></div><div class="price">250</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.milkshake">Milkshake</p><p class="item-desc" data-i18n="desc.milkshake">Vanilya / Çikolata / Çilek</p></div><div class="price">230</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.churchill">Churchill</p></div><div class="price">125</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.sparklingWater">Soda</p></div><div class="price">120</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.water">Su</p></div><div class="price">50</div></div>
             </div>
           </div>
         </section>
 
         <section class="menu-section section-brewed" id="brewed">
           <div class="art-layer">
-            <div class="art art-main">
-              <img src="./demleme.png" alt="" loading="lazy" decoding="async" />
-            </div>
-            <div class="art art-branch">
-              <img src="./matca.png" alt="" loading="lazy" decoding="async" />
-            </div>
+            <div class="art art-main"><img src="./demleme.png" alt="" loading="lazy" decoding="async" /></div>
+            <div class="art art-branch"><img src="./matca.png" alt="" loading="lazy" decoding="async" /></div>
           </div>
-
           <div class="content content--wide">
-            <div class="section-meta"><span>06</span><span>Brewed</span></div>
-            <h2 class="section-title">Brewed</h2>
-
+            <div class="section-meta"><span>06</span><span data-i18n="nav.brewed">Demleme</span></div>
+            <h2 class="section-title" data-i18n="nav.brewed">Demleme</h2>
             <div class="items">
-              <div class="item"><div class="item-copy"><p class="item-name">Tea</p></div><div class="price">40</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Turkish Coffee - Kıvrak</p></div><div class="price">140 / 170</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Turkish Coffee - Mehmet Efendi</p></div><div class="price">140 / 170</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Filter Coffee</p></div><div class="price">160</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">V60</p></div><div class="price">250</div></div>
-              <div class="item"><div class="item-copy"><p class="item-name">Cold Brew</p></div><div class="price">155</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.tea">Çay</p></div><div class="price">40</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.turkishCoffeeKivrak">Türk Kahvesi - Kıvrak</p></div><div class="price">140 / 170</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.turkishCoffeeMehmet">Türk Kahvesi - Mehmet Efendi</p></div><div class="price">140 / 170</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.filterCoffee">Filtre Kahve</p></div><div class="price">160</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.v60">V60</p></div><div class="price">250</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.coldBrew">Cold Brew</p></div><div class="price">155</div></div>
             </div>
           </div>
         </section>
 
         <section class="menu-section section-matcha" id="matcha">
           <div class="art-layer">
-            <div class="art art-left">
-              <img src="./ealt2.png" alt="" loading="lazy" decoding="async" />
-            </div>
-            <div class="art art-right">
-              <img src="./matca.png" alt="" loading="lazy" decoding="async" />
-            </div>
+            <div class="art art-left"><img src="./ealt2.png" alt="" loading="lazy" decoding="async" /></div>
+            <div class="art art-right"><img src="./matca.png" alt="" loading="lazy" decoding="async" /></div>
           </div>
-
           <div class="content content--wide">
-            <div class="section-meta"><span>07</span><span>Matcha</span></div>
-            <h2 class="section-title">Matcha</h2>
-
+            <div class="section-meta"><span>07</span><span data-i18n="nav.matcha">Matcha</span></div>
+            <h2 class="section-title" data-i18n="nav.matcha">Matcha</h2>
             <div class="matrix">
-              <div class="matrix-head"><span></span><span>Hot</span><span>Iced</span></div>
-              <div class="matrix-row"><p class="item-name">Matcha Latte</p><div class="price">270</div><div class="price">270</div></div>
-              <div class="matrix-row"><p class="item-name">Vanilla Matcha Latte</p><div class="price">325</div><div class="price">325</div></div>
-              <div class="matrix-row"><p class="item-name">Strawberry Matcha Latte</p><div class="price is-empty">.</div><div class="price">325</div></div>
-              <div class="matrix-row"><p class="item-name">Banana Matcha Latte</p><div class="price is-empty">.</div><div class="price">380</div></div>
+              <div class="matrix-head"><span></span><span data-i18n="label.hot">Sıcak</span><span data-i18n="label.iced">Soguk</span></div>
+              <div class="matrix-row"><p class="item-name" data-i18n="item.matchaLatte">Matcha Latte</p><div class="price">270</div><div class="price">270</div></div>
+              <div class="matrix-row"><p class="item-name" data-i18n="item.vanillaMatcha">Vanilyalı Matcha Latte</p><div class="price">325</div><div class="price">325</div></div>
+              <div class="matrix-row"><p class="item-name" data-i18n="item.strawberryMatcha">Çilekli Matcha Latte</p><div class="price is-empty">.</div><div class="price">325</div></div>
+              <div class="matrix-row"><p class="item-name" data-i18n="item.bananaMatcha">Muzlu Matcha Latte</p><div class="price is-empty">.</div><div class="price">380</div></div>
             </div>
           </div>
         </section>
 
         <section class="menu-section section-healthy" id="healthy">
           <div class="art-layer">
-            <div class="art art-left">
-              <img src="./ealty.png" alt="" loading="lazy" decoding="async" />
-            </div>
-            <div class="art art-right">
-              <img src="./ealt2.png" alt="" loading="lazy" decoding="async" />
-            </div>
+            <div class="art art-left"><img src="./ealty.png" alt="" loading="lazy" decoding="async" /></div>
+            <div class="art art-right"><img src="./ealt2.png" alt="" loading="lazy" decoding="async" /></div>
           </div>
-
           <div class="content content--wide">
-            <div class="section-meta"><span>08</span><span>Healthy</span></div>
-            <h2 class="section-title">Healthy</h2>
+            <div class="section-meta"><span>08</span><span data-i18n="nav.healthy">Saglıklı</span></div>
+            <h2 class="section-title" data-i18n="nav.healthy">Saglıklı</h2>
 
             <div class="subgroups">
               <div class="subgroup">
-                <h3 class="subgroup-title">DETOX WATER</h3>
+                <h3 class="subgroup-title" data-i18n="group.detoxWater">DETOKS SUYU</h3>
                 <div class="items">
-                  <div class="item"><div class="item-copy"><p class="item-name">Pure Green Detox</p><p class="item-desc">Cucumber + Lemon + Mint</p></div><div class="price">250</div></div>
-                  <div class="item"><div class="item-copy"><p class="item-name">Tropical Detox</p><p class="item-desc">Pineapple + Orange + Ginger</p></div><div class="price">280</div></div>
+                  <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.pureGreenDetox">Pure Green Detox</p><p class="item-desc" data-i18n="desc.pureGreenDetox">Salatalık + Limon + Nane</p></div><div class="price">250</div></div>
+                  <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.tropicalDetox">Tropical Detox</p><p class="item-desc" data-i18n="desc.tropicalDetox">Ananas + Portakal + Zencefil</p></div><div class="price">280</div></div>
                 </div>
               </div>
 
               <div class="subgroup">
-                <h3 class="subgroup-title">DETOX SHOT</h3>
+                <h3 class="subgroup-title" data-i18n="group.detoxShot">DETOKS SHOT</h3>
                 <div class="items">
-                  <div class="item"><div class="item-copy"><p class="item-name">Energy Shot</p><p class="item-desc">Orange, Lemon, Ginger</p></div><div class="price">220</div></div>
-                  <div class="item"><div class="item-copy"><p class="item-name">Glow Shot</p><p class="item-desc">Cucumber, Lemon, Parsley, Green Apple</p></div><div class="price">220</div></div>
-                  <div class="item"><div class="item-copy"><p class="item-name">Retinol Shot</p><p class="item-desc">Carrot, Lemon, Orange, Ginger</p></div><div class="price">220</div></div>
+                  <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.energyShot">Energy Shot</p><p class="item-desc" data-i18n="desc.energyShot">Portakal, Limon, Zencefil</p></div><div class="price">220</div></div>
+                  <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.glowShot">Glow Shot</p><p class="item-desc" data-i18n="desc.glowShot">Salatalık, Limon, Maydanoz, Yeşil Elma</p></div><div class="price">220</div></div>
+                  <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.retinolShot">Retinol Shot</p><p class="item-desc" data-i18n="desc.retinolShot">Havuç, Limon, Portakal, Zencefil</p></div><div class="price">220</div></div>
                 </div>
               </div>
 
               <div class="subgroup">
-                <h3 class="subgroup-title">PROTEIN SHAKE</h3>
+                <h3 class="subgroup-title" data-i18n="group.proteinShake">PROTEIN SHAKE</h3>
                 <div class="items">
-                  <div class="item"><div class="item-copy"><p class="item-name">Protein Shake</p><p class="item-desc">Peanut Butter - Milk - Ice - Protein Powder</p></div><div class="price">350</div></div>
+                  <div class="item"><div class="item-copy"><p class="item-name" data-i18n="item.proteinShake">Protein Shake</p><p class="item-desc" data-i18n="desc.proteinShake">Fıstık Ezmesi - Süt - Buz - Protein Tozu</p></div><div class="price">350</div></div>
                 </div>
                 <div class="options-box">
-                  <p class="option-label">Flavor Options</p>
-                  <p class="option-value">Banana / Chocolate</p>
+                  <p class="option-label" data-i18n="label.flavorOptions">Aroma Seçenekleri</p>
+                  <p class="option-value" data-i18n="value.flavorOptions">Muz / Çikolata</p>
                 </div>
               </div>
             </div>
@@ -887,42 +904,25 @@
 
         <section class="menu-section section-bowl" id="bowl">
           <div class="art-layer">
-            <div class="art art-left">
-              <img src="./bowl2.png" alt="" loading="lazy" decoding="async" />
-            </div>
-            <div class="art art-center">
-              <img src="./bowl.png" alt="" loading="lazy" decoding="async" />
-            </div>
-            <div class="art art-right">
-              <img src="./ealt2.png" alt="" loading="lazy" decoding="async" />
-            </div>
+            <div class="art art-left"><img src="./bowl2.png" alt="" loading="lazy" decoding="async" /></div>
+            <div class="art art-center"><img src="./bowl.png" alt="" loading="lazy" decoding="async" /></div>
+            <div class="art art-right"><img src="./ealt2.png" alt="" loading="lazy" decoding="async" /></div>
           </div>
-
           <div class="content">
-            <div class="section-meta"><span>09</span><span>Bowl</span></div>
-            <h2 class="section-title">Bowl</h2>
-
+            <div class="section-meta"><span>09</span><span data-i18n="nav.bowl">Bowl</span></div>
+            <h2 class="section-title" data-i18n="nav.bowl">Bowl</h2>
             <div class="items">
               <div class="item">
                 <div class="item-copy">
-                  <p class="item-name">High Protein Bowl</p>
-                  <p class="item-desc">
-                    <span>Yogurt, Protein Powder, Banana</span>
-                    <span>Banana or Red Berries, Granola,</span>
-                    <span>Coconut, Hazelnut Butter</span>
-                  </p>
+                  <p class="item-name" data-i18n="item.highProteinBowl">Yüksek Proteinli Bowl</p>
+                  <p class="item-desc"><span data-i18n="desc.highProteinBowl1">Yogurt, Protein Tozu, Muz</span><span data-i18n="desc.highProteinBowl2">Muz ya da Kırmızı Meyve, Granola,</span><span data-i18n="desc.highProteinBowl3">Hindistan Cevizi, Fındık Ezmesi</span></p>
                 </div>
                 <div class="price">500</div>
               </div>
-
               <div class="item">
                 <div class="item-copy">
-                  <p class="item-name">Tropical Bowl</p>
-                  <p class="item-desc">
-                    <span>Yogurt, Raspberry, Blackberry, Strawberry, Honey</span>
-                    <span>Blueberry, Granola, Coconut,</span>
-                    <span>Hazelnut Butter, Strawberry</span>
-                  </p>
+                  <p class="item-name" data-i18n="item.tropicalBowl">Tropical Bowl</p>
+                  <p class="item-desc"><span data-i18n="desc.tropicalBowl1">Yogurt, Frambuaz, Bögürtlen, Çilek, Bal</span><span data-i18n="desc.tropicalBowl2">Yaban Mersini, Granola, Hindistan Cevizi,</span><span data-i18n="desc.tropicalBowl3">Fındık Ezmesi, Çilek</span></p>
                 </div>
                 <div class="price">450</div>
               </div>
@@ -944,27 +944,236 @@
     </div>
 
     <script>
-      const links = [...document.querySelectorAll('.category-nav a')];
+      const translations = {
+        tr: {
+          "nav.hotCoffee": "Sıcak Kahve",
+          "nav.icedCoffee": "Soguk Kahve",
+          "nav.hotDrinks": "Sıcak Içecek",
+          "nav.coldDrinks": "Soguk Içecek",
+          "nav.brewed": "Demleme",
+          "nav.matcha": "Matcha",
+          "nav.healthy": "Saglıklı",
+          "nav.bowl": "Bowl",
+          "item.espresso": "Espresso",
+          "item.americano": "Americano",
+          "item.flatWhite": "Flat White",
+          "item.cortado": "Cortado",
+          "item.cappuccino": "Cappuccino",
+          "item.latte": "Latte",
+          "item.mocha": "Mocha",
+          "item.whiteMocha": "Beyaz Çikolatalı Mocha",
+          "item.caramelMocha": "Karamelli Mocha",
+          "item.macchiato": "Macchiato",
+          "item.caramelMacchiato": "Karamelli Macchiato",
+          "item.affogato": "Affogato",
+          "item.icedAmericano": "Soguk Americano",
+          "item.aeroccino": "Aeroccino",
+          "item.icedFlatWhite": "Soguk Flat White",
+          "item.icedCappuccino": "Soguk Cappuccino",
+          "item.icedLatte": "Soguk Latte",
+          "item.icedMocha": "Soguk Mocha",
+          "item.icedWhiteMocha": "Soguk Beyaz Çikolatalı Mocha",
+          "item.icedCaramelMocha": "Soguk Karamelli Mocha",
+          "item.chai": "Chai Tea Latte",
+          "item.hotChocolate": "Sıcak Çikolata",
+          "item.jasmineTea": "Yaseminli Yeşil Çay",
+          "item.winterTea": "Kış Çayı",
+          "item.mintLemonTea": "Nane Limon Çayı",
+          "item.chamomileTea": "Papatya Çayı",
+          "item.hibiscusTea": "Hibiskus Çayı",
+          "item.lemonade": "Limonata",
+          "item.strawberryLemonade": "Çilekli Limonata",
+          "item.hibiscusLemonade": "Hibiskus Limonata",
+          "item.hibiscus": "Hibiskus",
+          "item.coolLime": "Cool Lime",
+          "item.orangeJuice": "Taze Portakal Suyu",
+          "item.frozen": "Frozen",
+          "item.milkshake": "Milkshake",
+          "item.churchill": "Churchill",
+          "item.sparklingWater": "Soda",
+          "item.water": "Su",
+          "desc.frozen": "Mango / Yeşil Elma / Karpuz",
+          "desc.milkshake": "Vanilya / Çikolata / Çilek",
+          "item.tea": "Çay",
+          "item.turkishCoffeeKivrak": "Türk Kahvesi - Kıvrak",
+          "item.turkishCoffeeMehmet": "Türk Kahvesi - Mehmet Efendi",
+          "item.filterCoffee": "Filtre Kahve",
+          "item.v60": "V60",
+          "item.coldBrew": "Cold Brew",
+          "label.hot": "Sıcak",
+          "label.iced": "Soguk",
+          "item.matchaLatte": "Matcha Latte",
+          "item.vanillaMatcha": "Vanilyalı Matcha Latte",
+          "item.strawberryMatcha": "Çilekli Matcha Latte",
+          "item.bananaMatcha": "Muzlu Matcha Latte",
+          "group.detoxWater": "DETOKS SUYU",
+          "group.detoxShot": "DETOKS SHOT",
+          "group.proteinShake": "PROTEIN SHAKE",
+          "item.pureGreenDetox": "Pure Green Detox",
+          "desc.pureGreenDetox": "Salatalık + Limon + Nane",
+          "item.tropicalDetox": "Tropical Detox",
+          "desc.tropicalDetox": "Ananas + Portakal + Zencefil",
+          "item.energyShot": "Energy Shot",
+          "desc.energyShot": "Portakal, Limon, Zencefil",
+          "item.glowShot": "Glow Shot",
+          "desc.glowShot": "Salatalık, Limon, Maydanoz, Yeşil Elma",
+          "item.retinolShot": "Retinol Shot",
+          "desc.retinolShot": "Havuç, Limon, Portakal, Zencefil",
+          "item.proteinShake": "Protein Shake",
+          "desc.proteinShake": "Fıstık Ezmesi - Süt - Buz - Protein Tozu",
+          "label.flavorOptions": "Aroma Seçenekleri",
+          "value.flavorOptions": "Muz / Çikolata",
+          "item.highProteinBowl": "Yüksek Proteinli Bowl",
+          "desc.highProteinBowl1": "Yogurt, Protein Tozu, Muz",
+          "desc.highProteinBowl2": "Muz ya da Kırmızı Meyve, Granola,",
+          "desc.highProteinBowl3": "Hindistan Cevizi, Fındık Ezmesi",
+          "item.tropicalBowl": "Tropical Bowl",
+          "desc.tropicalBowl1": "Yogurt, Frambuaz, Bögürtlen, Çilek, Bal",
+          "desc.tropicalBowl2": "Yaban Mersini, Granola, Hindistan Cevizi,",
+          "desc.tropicalBowl3": "Fındık Ezmesi, Çilek",
+          "label.milkOptions": "Süt Seçenekleri",
+          "label.syrupOptions": "Şurup Seçenekleri",
+          "value.milkOptions": "Badem / Yulaf",
+          "value.syrupOptions": "Vanilya / Karamel / Fındık",
+          "extra.syrup": "Şurup",
+          "extra.espresso": "Extra Shot Espresso",
+          "extra.plantMilk": "Bitkisel Süt"
+        },
+        en: {
+          "nav.hotCoffee": "Hot Coffee",
+          "nav.icedCoffee": "Iced Coffee",
+          "nav.hotDrinks": "Hot Drinks",
+          "nav.coldDrinks": "Cold Drinks",
+          "nav.brewed": "Brewed",
+          "nav.matcha": "Matcha",
+          "nav.healthy": "Healthy",
+          "nav.bowl": "Bowl",
+          "item.espresso": "Espresso",
+          "item.americano": "Americano",
+          "item.flatWhite": "Flat White",
+          "item.cortado": "Cortado",
+          "item.cappuccino": "Cappuccino",
+          "item.latte": "Latte",
+          "item.mocha": "Mocha",
+          "item.whiteMocha": "White Chocolate Mocha",
+          "item.caramelMocha": "Caramel Mocha",
+          "item.macchiato": "Macchiato",
+          "item.caramelMacchiato": "Caramel Macchiato",
+          "item.affogato": "Affogato",
+          "item.icedAmericano": "Iced Americano",
+          "item.aeroccino": "Aeroccino",
+          "item.icedFlatWhite": "Iced Flat White",
+          "item.icedCappuccino": "Iced Cappuccino",
+          "item.icedLatte": "Iced Latte",
+          "item.icedMocha": "Iced Mocha",
+          "item.icedWhiteMocha": "Iced White Chocolate Mocha",
+          "item.icedCaramelMocha": "Iced Caramel Mocha",
+          "item.chai": "Chai Tea Latte",
+          "item.hotChocolate": "Hot Chocolate",
+          "item.jasmineTea": "Jasmine Green Tea",
+          "item.winterTea": "Winter Tea",
+          "item.mintLemonTea": "Mint Lemon Tea",
+          "item.chamomileTea": "Chamomile Tea",
+          "item.hibiscusTea": "Hibiscus Tea",
+          "item.lemonade": "Lemonade",
+          "item.strawberryLemonade": "Strawberry Lemonade",
+          "item.hibiscusLemonade": "Hibiscus Lemonade",
+          "item.hibiscus": "Hibiscus",
+          "item.coolLime": "Cool Lime",
+          "item.orangeJuice": "Fresh Orange Juice",
+          "item.frozen": "Frozen",
+          "item.milkshake": "Milkshake",
+          "item.churchill": "Churchill",
+          "item.sparklingWater": "Sparkling Water",
+          "item.water": "Water",
+          "desc.frozen": "Mango / Green Apple / Watermelon",
+          "desc.milkshake": "Vanilla / Chocolate / Strawberry",
+          "item.tea": "Tea",
+          "item.turkishCoffeeKivrak": "Turkish Coffee - Kıvrak",
+          "item.turkishCoffeeMehmet": "Turkish Coffee - Mehmet Efendi",
+          "item.filterCoffee": "Filter Coffee",
+          "item.v60": "V60",
+          "item.coldBrew": "Cold Brew",
+          "label.hot": "Hot",
+          "label.iced": "Iced",
+          "item.matchaLatte": "Matcha Latte",
+          "item.vanillaMatcha": "Vanilla Matcha Latte",
+          "item.strawberryMatcha": "Strawberry Matcha Latte",
+          "item.bananaMatcha": "Banana Matcha Latte",
+          "group.detoxWater": "DETOX WATER",
+          "group.detoxShot": "DETOX SHOT",
+          "group.proteinShake": "PROTEIN SHAKE",
+          "item.pureGreenDetox": "Pure Green Detox",
+          "desc.pureGreenDetox": "Cucumber + Lemon + Mint",
+          "item.tropicalDetox": "Tropical Detox",
+          "desc.tropicalDetox": "Pineapple + Orange + Ginger",
+          "item.energyShot": "Energy Shot",
+          "desc.energyShot": "Orange, Lemon, Ginger",
+          "item.glowShot": "Glow Shot",
+          "desc.glowShot": "Cucumber, Lemon, Parsley, Green Apple",
+          "item.retinolShot": "Retinol Shot",
+          "desc.retinolShot": "Carrot, Lemon, Orange, Ginger",
+          "item.proteinShake": "Protein Shake",
+          "desc.proteinShake": "Peanut Butter - Milk - Ice - Protein Powder",
+          "label.flavorOptions": "Flavor Options",
+          "value.flavorOptions": "Banana / Chocolate",
+          "item.highProteinBowl": "High Protein Bowl",
+          "desc.highProteinBowl1": "Yogurt, Protein Powder, Banana",
+          "desc.highProteinBowl2": "Banana or Red Berries, Granola,",
+          "desc.highProteinBowl3": "Coconut, Hazelnut Butter",
+          "item.tropicalBowl": "Tropical Bowl",
+          "desc.tropicalBowl1": "Yogurt, Raspberry, Blackberry, Strawberry, Honey",
+          "desc.tropicalBowl2": "Blueberry, Granola, Coconut,",
+          "desc.tropicalBowl3": "Hazelnut Butter, Strawberry",
+          "label.milkOptions": "Milk Options",
+          "label.syrupOptions": "Syrup Options",
+          "value.milkOptions": "Almond / Oat",
+          "value.syrupOptions": "Vanilla / Caramel / Hazelnut",
+          "extra.syrup": "Syrup",
+          "extra.espresso": "Extra Shot Espresso",
+          "extra.plantMilk": "Plant-Based Milk"
+        }
+      };
+
+      const languageButtons = [...document.querySelectorAll("[data-lang-button]")];
+      const links = [...document.querySelectorAll(".category-nav a")];
       const sections = links
-        .map((link) => document.querySelector(link.getAttribute('href')))
+        .map((link) => document.querySelector(link.getAttribute("href")))
         .filter(Boolean);
+
+      function setLanguage(lang) {
+        document.documentElement.lang = lang;
+        document.querySelectorAll("[data-i18n]").forEach((element) => {
+          const key = element.dataset.i18n;
+          element.textContent = translations[lang][key] || translations.tr[key] || element.textContent;
+        });
+
+        languageButtons.forEach((button) => {
+          button.classList.toggle("is-active", button.dataset.langButton === lang);
+        });
+      }
+
+      languageButtons.forEach((button) => {
+        button.addEventListener("click", () => setLanguage(button.dataset.langButton));
+      });
 
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (!entry.isIntersecting) return;
-            links.forEach((link) => link.classList.remove('is-active'));
+            links.forEach((link) => link.classList.remove("is-active"));
             const active = document.querySelector(`.category-nav a[href="#${entry.target.id}"]`);
             if (active) {
-              active.classList.add('is-active');
-              active.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
+              active.classList.add("is-active");
+              active.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
             }
           });
         },
-        { rootMargin: '-35% 0px -55% 0px', threshold: 0.01 }
+        { rootMargin: "-35% 0px -55% 0px", threshold: 0.01 }
       );
 
       sections.forEach((section) => observer.observe(section));
+      setLanguage("tr");
     </script>
   </body>
 </html>
