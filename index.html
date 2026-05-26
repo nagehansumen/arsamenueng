@@ -1,0 +1,970 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#f7f6f1" />
+    <meta name="description" content="arsa Coffee · Drink · Dessert online menu." />
+    <title>arsa · Menu</title>
+
+    <style>
+      @font-face {
+        font-family: "Eyesome Script";
+        src: url("./Eyesome Script.otf") format("opentype");
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Eyesome Regular";
+        src: url("./Eyesome Regular.otf") format("opentype");
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Boston Angel";
+        src: url("./Boston Angel Light.otf") format("opentype");
+        font-display: swap;
+      }
+
+      :root {
+        --bg: #f7f6f1;
+        --paper: #fbfaf6;
+        --ink: #1c1b18;
+        --olive: #7d8458;
+        --olive-soft: rgba(125, 132, 88, 0.14);
+        --olive-line: rgba(125, 132, 88, 0.23);
+        --muted: rgba(28, 27, 24, 0.58);
+        --serif: "Boston Angel", Georgia, "Times New Roman", serif;
+        --script: "Eyesome Script", "Brush Script MT", cursive;
+        --sans: "Eyesome Regular", "Helvetica Neue", Arial, sans-serif;
+        --shadow: 0 14px 36px rgba(88, 92, 66, 0.07);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--serif);
+        -webkit-font-smoothing: antialiased;
+        text-rendering: geometricPrecision;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+        pointer-events: none;
+        background:
+          linear-gradient(rgba(125, 132, 88, 0.028) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(125, 132, 88, 0.02) 1px, transparent 1px),
+          radial-gradient(circle at 85% 8%, rgba(125, 132, 88, 0.08), transparent 20rem);
+        background-size: 42px 42px, 42px 42px, auto;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .site {
+        width: min(100%, 430px);
+        margin: 0 auto;
+        background: rgba(251, 250, 246, 0.72);
+        min-height: 100svh;
+        border-inline: 1px solid rgba(125, 132, 88, 0.12);
+      }
+
+      .cover {
+        min-height: 100svh;
+        display: grid;
+        place-items: center;
+        padding: max(28px, env(safe-area-inset-top)) 22px max(28px, env(safe-area-inset-bottom));
+        border-bottom: 1px solid var(--olive-line);
+      }
+
+      .cover-inner {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 38px;
+        text-align: center;
+      }
+
+      .cover-logo {
+        width: min(270px, 72vw);
+      }
+
+      .cover-menu {
+        width: min(205px, 54vw);
+      }
+
+      .category-nav-wrap {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        background: rgba(247, 246, 241, 0.92);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--olive-line);
+      }
+
+      .category-nav {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 10px 14px;
+        scrollbar-width: none;
+      }
+
+      .category-nav::-webkit-scrollbar {
+        display: none;
+      }
+
+      .category-nav a {
+        flex: 0 0 auto;
+        min-height: 38px;
+        padding: 10px 14px 9px;
+        border: 1px solid var(--olive-line);
+        border-radius: 999px;
+        color: var(--olive);
+        background: rgba(255, 255, 253, 0.7);
+        font-family: var(--sans);
+        font-size: 10px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        transition: 180ms ease;
+      }
+
+      .category-nav a.is-active {
+        background: var(--olive);
+        color: var(--paper);
+        border-color: var(--olive);
+      }
+
+      main {
+        padding: 12px 10px 22px;
+      }
+
+      .menu-section {
+        position: relative;
+        overflow: hidden;
+        min-height: 88svh;
+        margin-bottom: 14px;
+        padding: 22px 18px 26px;
+        border: 1px solid var(--olive-line);
+        border-radius: 28px;
+        background: rgba(251, 250, 246, 0.82);
+        box-shadow: var(--shadow);
+        isolation: isolate;
+      }
+
+      .menu-section::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: linear-gradient(to top, rgba(251,250,246,0.02), rgba(251,250,246,0.02));
+        z-index: -1;
+      }
+
+      .section-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 10px;
+        color: var(--olive);
+        font-family: var(--sans);
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .section-title {
+        margin: 0 0 24px;
+        color: var(--olive);
+        font-family: var(--script);
+        font-size: clamp(56px, 18vw, 84px);
+        font-weight: 400;
+        line-height: 0.82;
+        letter-spacing: -0.05em;
+      }
+
+      .content {
+        position: relative;
+        z-index: 2;
+        max-width: 100%;
+      }
+
+      .content--wide {
+        max-width: 72%;
+      }
+
+      .items,
+      .matrix,
+      .subgroups {
+        display: grid;
+        gap: 12px;
+      }
+
+      .item {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 14px;
+        align-items: start;
+      }
+
+      .item-copy {
+        min-width: 0;
+      }
+
+      .item-name {
+        margin: 0;
+        font-size: 19px;
+        line-height: 1.08;
+      }
+
+      .item-desc {
+        margin: 6px 0 0;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.33;
+      }
+
+      .item-desc span {
+        display: block;
+      }
+
+      .price {
+        min-width: 48px;
+        text-align: right;
+        font-family: var(--sans);
+        font-size: 13px;
+        letter-spacing: 0.14em;
+        line-height: 1.2;
+        white-space: nowrap;
+      }
+
+      .subgroup {
+        margin-top: 20px;
+      }
+
+      .subgroup:first-child {
+        margin-top: 0;
+      }
+
+      .subgroup-title,
+      .option-label {
+        margin: 0 0 12px;
+        color: var(--olive);
+        font-family: var(--sans);
+        font-size: 11px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .options-box {
+        position: relative;
+        z-index: 2;
+        margin-top: 18px;
+        padding: 14px;
+        border: 1px solid var(--olive-line);
+        border-radius: 18px;
+        background: rgba(244, 242, 235, 0.7);
+      }
+
+      .options-grid {
+        display: grid;
+        gap: 12px;
+      }
+
+      .option-value {
+        margin: 0;
+        font-size: 16px;
+      }
+
+      .extras-list {
+        display: grid;
+        gap: 7px;
+        margin-top: 14px;
+        padding-top: 14px;
+        border-top: 1px solid var(--olive-line);
+      }
+
+      .extra-row {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 12px;
+        color: var(--muted);
+        font-size: 15px;
+      }
+
+      .matrix-head,
+      .matrix-row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 52px 52px;
+        gap: 8px;
+        align-items: start;
+      }
+
+      .matrix-head {
+        color: var(--olive);
+        font-family: var(--sans);
+        font-size: 10px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .matrix-head span:not(:first-child),
+      .matrix-row .price {
+        text-align: center;
+      }
+
+      .matrix-row .is-empty {
+        color: transparent;
+        user-select: none;
+      }
+
+      .art-layer {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .art {
+        position: absolute;
+        opacity: 0.92;
+      }
+
+      .art img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+      }
+
+      .section-hot-coffee .content {
+        max-width: 58%;
+      }
+
+      .section-hot-coffee {
+        padding-bottom: 280px;
+      }
+
+      .section-hot-coffee .art-main {
+        left: -8px;
+        bottom: -6px;
+        width: 59%;
+      }
+
+      .section-hot-coffee .options-box {
+        position: absolute;
+        right: 18px;
+        bottom: 28px;
+        width: 36%;
+        background: transparent;
+        border: none;
+        padding: 0;
+      }
+
+      .section-hot-coffee .extras-list {
+        border-top: 0;
+        padding-top: 0;
+        margin-top: 14px;
+      }
+
+      .section-iced-coffee .content {
+        max-width: 58%;
+      }
+
+      .section-iced-coffee {
+        padding-bottom: 280px;
+      }
+
+      .section-iced-coffee .art-main {
+        left: -12px;
+        bottom: -6px;
+        width: 62%;
+      }
+
+      .section-iced-coffee .options-box {
+        position: absolute;
+        right: 18px;
+        bottom: 28px;
+        width: 36%;
+        background: transparent;
+        border: none;
+        padding: 0;
+      }
+
+      .section-iced-coffee .extras-list {
+        border-top: 0;
+        padding-top: 0;
+        margin-top: 14px;
+      }
+
+      .section-hot-drinks .content {
+        max-width: 68%;
+      }
+
+      .section-hot-drinks {
+        padding-bottom: 260px;
+      }
+
+      .section-hot-drinks .art-left {
+        left: -24px;
+        bottom: -6px;
+        width: 46%;
+      }
+
+      .section-hot-drinks .art-right {
+        right: -10px;
+        bottom: -4px;
+        width: 34%;
+      }
+
+      .section-cold-drinks .content {
+        max-width: 72%;
+      }
+
+      .section-cold-drinks {
+        padding-bottom: 250px;
+      }
+
+      .section-cold-drinks .art-main {
+        right: -8px;
+        bottom: -4px;
+        width: 42%;
+      }
+
+      .section-brewed .content {
+        max-width: 72%;
+      }
+
+      .section-brewed {
+        padding-bottom: 250px;
+      }
+
+      .section-brewed .art-main {
+        left: -20px;
+        bottom: -14px;
+        width: 44%;
+      }
+
+      .section-brewed .art-branch {
+        right: -40px;
+        bottom: -10px;
+        width: 68%;
+        opacity: 0.88;
+      }
+
+      .section-matcha .content {
+        max-width: 76%;
+      }
+
+      .section-matcha {
+        padding-bottom: 250px;
+      }
+
+      .section-matcha .art-left {
+        left: -54px;
+        bottom: 20px;
+        width: 36%;
+        opacity: 0.75;
+      }
+
+      .section-matcha .art-right {
+        right: -10px;
+        bottom: -14px;
+        width: 50%;
+      }
+
+      .section-healthy .content {
+        max-width: 74%;
+      }
+
+      .section-healthy {
+        padding-bottom: 280px;
+      }
+
+      .section-healthy .art-left {
+        left: -24px;
+        bottom: -10px;
+        width: 32%;
+      }
+
+      .section-healthy .art-right {
+        right: -16px;
+        bottom: -12px;
+        width: 52%;
+      }
+
+      .section-bowl .content {
+        max-width: 80%;
+      }
+
+      .section-bowl {
+        padding-bottom: 330px;
+      }
+
+      .section-bowl .art-left {
+        left: -24px;
+        bottom: 120px;
+        width: 40%;
+      }
+
+      .section-bowl .art-center {
+        left: 10%;
+        bottom: -10px;
+        width: 58%;
+      }
+
+      .section-bowl .art-right {
+        right: -18px;
+        bottom: 20px;
+        width: 28%;
+      }
+
+      .back-cover {
+        position: relative;
+        overflow: hidden;
+        min-height: 92svh;
+        padding: 24px 18px 34px;
+        border-top: 1px solid var(--olive-line);
+      }
+
+      .back-cover .building {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        opacity: 0.75;
+      }
+
+      .back-cover .overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(247,246,241,0.1), rgba(247,246,241,0.46));
+      }
+
+      .back-inner {
+        position: relative;
+        z-index: 2;
+        min-height: calc(92svh - 58px);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        gap: 18px;
+      }
+
+      .back-top {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+
+      .back-logo {
+        width: min(170px, 48vw);
+      }
+
+      .qr {
+        width: 104px;
+        padding: 8px;
+        border: 1px solid var(--olive-line);
+        border-radius: 14px;
+        background: rgba(255,255,252,0.7);
+      }
+
+      @media (min-width: 430px) {
+        .site {
+          width: min(100%, 520px);
+        }
+      }
+
+      @media (min-width: 760px) {
+        .site {
+          width: min(100%, 640px);
+        }
+
+        main {
+          padding-inline: 16px;
+        }
+
+        .menu-section {
+          padding-inline: 24px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        .category-nav a {
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="site">
+      <section class="cover" id="top" aria-label="Cover">
+        <div class="cover-inner">
+          <img class="cover-logo" src="./1. sayfa logo.png" alt="arsa Coffee Drink Dessert" />
+          <img class="cover-menu" src="./1. sayfa menu.png" alt="Menu" />
+        </div>
+      </section>
+
+      <nav class="category-nav-wrap" aria-label="Menu categories">
+        <div class="category-nav">
+          <a href="#hot-coffee">Hot Coffee</a>
+          <a href="#iced-coffee">Iced Coffee</a>
+          <a href="#hot-drinks">Hot Drinks</a>
+          <a href="#cold-drinks">Cold Drinks</a>
+          <a href="#brewed">Brewed</a>
+          <a href="#matcha">Matcha</a>
+          <a href="#healthy">Healthy</a>
+          <a href="#bowl">Bowl</a>
+        </div>
+      </nav>
+
+      <main>
+        <section class="menu-section section-hot-coffee" id="hot-coffee">
+          <div class="art-layer">
+            <div class="art art-main">
+              <img src="./sicak kave.png" alt="" loading="lazy" decoding="async" />
+            </div>
+          </div>
+
+          <div class="content">
+            <div class="section-meta"><span>02</span><span>Hot Coffee</span></div>
+            <h2 class="section-title">Hot Coffee</h2>
+
+            <div class="items">
+              <div class="item"><div class="item-copy"><p class="item-name">Espresso</p></div><div class="price">130 / 145</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Americano</p></div><div class="price">160</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Flat White</p></div><div class="price">190</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Cortado</p></div><div class="price">180</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Cappuccino</p></div><div class="price">200</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Latte</p></div><div class="price">180</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Mocha</p></div><div class="price">190</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">White Chocolate Mocha</p></div><div class="price">190</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Caramel Mocha</p></div><div class="price">190</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Macchiato</p></div><div class="price">180</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Caramel Macchiato</p></div><div class="price">190</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Affogato</p></div><div class="price">250</div></div>
+            </div>
+          </div>
+
+          <div class="options-box">
+            <div class="options-grid">
+              <div>
+                <p class="option-label">Milk Options</p>
+                <p class="option-value">Almond / Oat</p>
+              </div>
+              <div>
+                <p class="option-label">Syrup Options</p>
+                <p class="option-value">Vanilla / Caramel / Hazelnut</p>
+              </div>
+            </div>
+            <div class="extras-list">
+              <div class="extra-row"><span>Extra Syrup</span><span>+50</span></div>
+              <div class="extra-row"><span>Extra Milk</span><span>+50</span></div>
+              <div class="extra-row"><span>Extra Espresso</span><span>+70</span></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="menu-section section-iced-coffee" id="iced-coffee">
+          <div class="art-layer">
+            <div class="art art-main">
+              <img src="./soguk kave.png" alt="" loading="lazy" decoding="async" />
+            </div>
+          </div>
+
+          <div class="content">
+            <div class="section-meta"><span>03</span><span>Iced Coffee</span></div>
+            <h2 class="section-title">Iced Coffee</h2>
+
+            <div class="items">
+              <div class="item"><div class="item-copy"><p class="item-name">Iced Americano</p></div><div class="price">170</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Aeroccino</p></div><div class="price">185</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Flat White</p></div><div class="price">200</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Iced Cappuccino</p></div><div class="price">230</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Iced Latte</p></div><div class="price">190</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Iced Mocha</p></div><div class="price">210</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Iced White Chocolate Mocha</p></div><div class="price">210</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Iced Caramel Mocha</p></div><div class="price">210</div></div>
+            </div>
+          </div>
+
+          <div class="options-box">
+            <div class="options-grid">
+              <div>
+                <p class="option-label">Milk Options</p>
+                <p class="option-value">Almond / Oat</p>
+              </div>
+              <div>
+                <p class="option-label">Syrup Options</p>
+                <p class="option-value">Vanilla / Caramel / Hazelnut</p>
+              </div>
+            </div>
+            <div class="extras-list">
+              <div class="extra-row"><span>Extra Syrup</span><span>+50</span></div>
+              <div class="extra-row"><span>Extra Milk</span><span>+50</span></div>
+              <div class="extra-row"><span>Extra Espresso</span><span>+70</span></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="menu-section section-hot-drinks" id="hot-drinks">
+          <div class="art-layer">
+            <div class="art art-left">
+              <img src="./sicak icecek.png" alt="" loading="lazy" decoding="async" />
+            </div>
+            <div class="art art-right">
+              <img src="./demleme.png" alt="" loading="lazy" decoding="async" />
+            </div>
+          </div>
+
+          <div class="content content--wide">
+            <div class="section-meta"><span>04</span><span>Hot Drinks</span></div>
+            <h2 class="section-title">Hot Drinks</h2>
+
+            <div class="items">
+              <div class="item"><div class="item-copy"><p class="item-name">Chai Tea Latte</p></div><div class="price">200</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Hot Chocolate</p></div><div class="price">240</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Jasmine Green Tea</p></div><div class="price">180</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Winter Tea</p></div><div class="price">180</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Mint Lemon Tea</p></div><div class="price">180</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Chamomile Tea</p></div><div class="price">180</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Hibiscus Tea</p></div><div class="price">200</div></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="menu-section section-cold-drinks" id="cold-drinks">
+          <div class="art-layer">
+            <div class="art art-main">
+              <img src="./soguk icecek.png" alt="" loading="lazy" decoding="async" />
+            </div>
+          </div>
+
+          <div class="content content--wide">
+            <div class="section-meta"><span>05</span><span>Cold Drinks</span></div>
+            <h2 class="section-title">Cold Drinks</h2>
+
+            <div class="items">
+              <div class="item"><div class="item-copy"><p class="item-name">Lemonade</p></div><div class="price">200</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Strawberry Lemonade</p></div><div class="price">220</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Hibiscus Lemonade</p></div><div class="price">250</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Hibiscus</p></div><div class="price">220</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Cool Lime</p></div><div class="price">220</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Fresh Orange Juice</p></div><div class="price">230</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Frozen</p><p class="item-desc">Mango / Green Apple / Watermelon</p></div><div class="price">250</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Milkshake</p><p class="item-desc">Vanilla / Chocolate / Strawberry</p></div><div class="price">230</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Churchill</p></div><div class="price">125</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Sparkling Water</p></div><div class="price">120</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Water</p></div><div class="price">50</div></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="menu-section section-brewed" id="brewed">
+          <div class="art-layer">
+            <div class="art art-main">
+              <img src="./demleme.png" alt="" loading="lazy" decoding="async" />
+            </div>
+            <div class="art art-branch">
+              <img src="./matca.png" alt="" loading="lazy" decoding="async" />
+            </div>
+          </div>
+
+          <div class="content content--wide">
+            <div class="section-meta"><span>06</span><span>Brewed</span></div>
+            <h2 class="section-title">Brewed</h2>
+
+            <div class="items">
+              <div class="item"><div class="item-copy"><p class="item-name">Tea</p></div><div class="price">40</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Turkish Coffee - Kıvrak</p></div><div class="price">140 / 170</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Turkish Coffee - Mehmet Efendi</p></div><div class="price">140 / 170</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Filter Coffee</p></div><div class="price">160</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">V60</p></div><div class="price">250</div></div>
+              <div class="item"><div class="item-copy"><p class="item-name">Cold Brew</p></div><div class="price">155</div></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="menu-section section-matcha" id="matcha">
+          <div class="art-layer">
+            <div class="art art-left">
+              <img src="./ealt2.png" alt="" loading="lazy" decoding="async" />
+            </div>
+            <div class="art art-right">
+              <img src="./matca.png" alt="" loading="lazy" decoding="async" />
+            </div>
+          </div>
+
+          <div class="content content--wide">
+            <div class="section-meta"><span>07</span><span>Matcha</span></div>
+            <h2 class="section-title">Matcha</h2>
+
+            <div class="matrix">
+              <div class="matrix-head"><span></span><span>Hot</span><span>Iced</span></div>
+              <div class="matrix-row"><p class="item-name">Matcha Latte</p><div class="price">270</div><div class="price">270</div></div>
+              <div class="matrix-row"><p class="item-name">Vanilla Matcha Latte</p><div class="price">325</div><div class="price">325</div></div>
+              <div class="matrix-row"><p class="item-name">Strawberry Matcha Latte</p><div class="price is-empty">.</div><div class="price">325</div></div>
+              <div class="matrix-row"><p class="item-name">Banana Matcha Latte</p><div class="price is-empty">.</div><div class="price">380</div></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="menu-section section-healthy" id="healthy">
+          <div class="art-layer">
+            <div class="art art-left">
+              <img src="./ealty.png" alt="" loading="lazy" decoding="async" />
+            </div>
+            <div class="art art-right">
+              <img src="./ealt2.png" alt="" loading="lazy" decoding="async" />
+            </div>
+          </div>
+
+          <div class="content content--wide">
+            <div class="section-meta"><span>08</span><span>Healthy</span></div>
+            <h2 class="section-title">Healthy</h2>
+
+            <div class="subgroups">
+              <div class="subgroup">
+                <h3 class="subgroup-title">DETOX WATER</h3>
+                <div class="items">
+                  <div class="item"><div class="item-copy"><p class="item-name">Pure Green Detox</p><p class="item-desc">Cucumber + Lemon + Mint</p></div><div class="price">250</div></div>
+                  <div class="item"><div class="item-copy"><p class="item-name">Tropical Detox</p><p class="item-desc">Pineapple + Orange + Ginger</p></div><div class="price">280</div></div>
+                </div>
+              </div>
+
+              <div class="subgroup">
+                <h3 class="subgroup-title">DETOX SHOT</h3>
+                <div class="items">
+                  <div class="item"><div class="item-copy"><p class="item-name">Energy Shot</p><p class="item-desc">Orange, Lemon, Ginger</p></div><div class="price">220</div></div>
+                  <div class="item"><div class="item-copy"><p class="item-name">Glow Shot</p><p class="item-desc">Cucumber, Lemon, Parsley, Green Apple</p></div><div class="price">220</div></div>
+                  <div class="item"><div class="item-copy"><p class="item-name">Retinol Shot</p><p class="item-desc">Carrot, Lemon, Orange, Ginger</p></div><div class="price">220</div></div>
+                </div>
+              </div>
+
+              <div class="subgroup">
+                <h3 class="subgroup-title">PROTEIN SHAKE</h3>
+                <div class="items">
+                  <div class="item"><div class="item-copy"><p class="item-name">Protein Shake</p><p class="item-desc">Peanut Butter - Milk - Ice - Protein Powder</p></div><div class="price">350</div></div>
+                </div>
+                <div class="options-box">
+                  <p class="option-label">Flavor Options</p>
+                  <p class="option-value">Banana / Chocolate</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="menu-section section-bowl" id="bowl">
+          <div class="art-layer">
+            <div class="art art-left">
+              <img src="./bowl2.png" alt="" loading="lazy" decoding="async" />
+            </div>
+            <div class="art art-center">
+              <img src="./bowl.png" alt="" loading="lazy" decoding="async" />
+            </div>
+            <div class="art art-right">
+              <img src="./ealt2.png" alt="" loading="lazy" decoding="async" />
+            </div>
+          </div>
+
+          <div class="content">
+            <div class="section-meta"><span>09</span><span>Bowl</span></div>
+            <h2 class="section-title">Bowl</h2>
+
+            <div class="items">
+              <div class="item">
+                <div class="item-copy">
+                  <p class="item-name">High Protein Bowl</p>
+                  <p class="item-desc">
+                    <span>Yogurt, Protein Powder, Banana</span>
+                    <span>Banana or Red Berries, Granola,</span>
+                    <span>Coconut, Hazelnut Butter</span>
+                  </p>
+                </div>
+                <div class="price">500</div>
+              </div>
+
+              <div class="item">
+                <div class="item-copy">
+                  <p class="item-name">Tropical Bowl</p>
+                  <p class="item-desc">
+                    <span>Yogurt, Raspberry, Blackberry, Strawberry, Honey</span>
+                    <span>Blueberry, Granola, Coconut,</span>
+                    <span>Hazelnut Butter, Strawberry</span>
+                  </p>
+                </div>
+                <div class="price">450</div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <section class="back-cover" aria-label="Back cover">
+        <img class="building" src="./ arsa-building.jpg" alt="" loading="lazy" decoding="async" />
+        <div class="overlay"></div>
+        <div class="back-inner">
+          <div class="back-top">
+            <img class="back-logo" src="./1. sayfa logo.png" alt="arsa Coffee Drink Dessert" loading="lazy" decoding="async" />
+          </div>
+          <img class="qr" src="./1. sayfa qr.png" alt="QR" loading="lazy" decoding="async" />
+        </div>
+      </section>
+    </div>
+
+    <script>
+      const links = [...document.querySelectorAll('.category-nav a')];
+      const sections = links
+        .map((link) => document.querySelector(link.getAttribute('href')))
+        .filter(Boolean);
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            links.forEach((link) => link.classList.remove('is-active'));
+            const active = document.querySelector(`.category-nav a[href="#${entry.target.id}"]`);
+            if (active) {
+              active.classList.add('is-active');
+              active.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
+            }
+          });
+        },
+        { rootMargin: '-35% 0px -55% 0px', threshold: 0.01 }
+      );
+
+      sections.forEach((section) => observer.observe(section));
+    </script>
+  </body>
+</html>
