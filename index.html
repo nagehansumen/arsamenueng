@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#f7f6f1" />
+    <meta name="description" content="arsa Coffee · Drink · Dessert online menu." />
+    <title>arsa · Menu</title>
+
+    <style>
+      @font-face { font-family: "Eyesome Script"; src: url("./Eyesome Script.otf") format("opentype"); font-display: swap; }
+      @font-face { font-family: "Eyesome Regular"; src: url("./Eyesome Regular.otf") format("opentype"); font-display: swap; }
+      @font-face { font-family: "Boston Angel"; src: url("./Boston Angel Light.otf") format("opentype"); font-display: swap; }
+
+      :root {
+        --bg: #f7f6f1;
+        --paper: #fbfaf6;
+        --ink: #1c1b18;
+        --olive: #7d8458;
+        --olive-line: rgba(125, 132, 88, 0.23);
+        --muted: rgba(28, 27, 24, 0.58);
+        --serif: "Boston Angel", Georgia, "Times New Roman", serif;
+        --script: "Eyesome Script", "Brush Script MT", cursive;
+        --sans: "Eyesome Regular", "Helvetica Neue", Arial, sans-serif;
+        --ui-bold: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        --shadow: 0 14px 36px rgba(88, 92, 66, 0.07);
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--serif);
+        -webkit-font-smoothing: antialiased;
+        text-rendering: geometricPrecision;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+        pointer-events: none;
+        background:
+          linear-gradient(rgba(125,132,88,.028) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(125,132,88,.02) 1px, transparent 1px),
+          radial-gradient(circle at 85% 8%, rgba(125,132,88,.08), transparent 20rem);
+        background-size: 42px 42px, 42px 42px, auto;
+      }
+      img { display: block; max-width: 100%; }
+      a, button { color: inherit; font: inherit; }
+      a { text-decoration: none; }
+      button { border: 0; background: none; cursor: pointer; }
+      .site { width: min(100%, 430px); margin: 0 auto; background: rgba(251,250,246,.72); min-height: 100svh; border-inline: 1px solid rgba(125,132,88,.12); }
+      .cover { min-height: 100svh; display: grid; place-items: center; padding: max(28px, env(safe-area-inset-top)) 22px max(28px, env(safe-area-inset-bottom)); border-bottom: 1px solid var(--olive-line); }
+      .cover-inner { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 34px; text-align: center; }
+      .cover-logo { width: min(270px, 72vw); }
+      .cover-menu { width: min(205px, 54vw); }
+      .language-switch { display: inline-flex; align-items: center; gap: 6px; padding: 5px; border: 1px solid var(--olive-line); border-radius: 999px; background: rgba(255,255,253,.72); }
+      .language-switch button { min-width: 52px; padding: 10px 14px 9px; border-radius: 999px; color: var(--olive); font-family: var(--ui-bold); font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; transition: 180ms ease; }
+      .language-switch button.is-active { background: var(--olive); color: var(--paper); }
+      .self-service { margin: 6px 0 0; color: var(--olive); font-family: var(--serif); font-size: clamp(30px, 8vw, 44px); line-height: 1; letter-spacing: .02em; text-align: center; }
+      .category-nav-wrap { position: sticky; top: 0; z-index: 40; background: rgba(247,246,241,.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid var(--olive-line); }
+      .category-nav { display: flex; gap: 8px; overflow-x: auto; padding: 10px 14px; scrollbar-width: none; }
+      .category-nav::-webkit-scrollbar { display: none; }
+      .category-nav a { flex: 0 0 auto; min-height: 38px; padding: 10px 14px 9px; border: 1px solid var(--olive-line); border-radius: 999px; color: var(--olive); background: rgba(255,255,253,.7); font-family: var(--ui-bold); font-size: 9.5px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; white-space: nowrap; word-break: keep-all; transition: 180ms ease; }
+      .category-nav a.is-active { background: var(--olive); color: var(--paper); border-color: var(--olive); }
+      main { padding: 12px 10px 22px; }
+      .menu-section { position: relative; overflow: hidden; min-height: 88svh; margin-bottom: 14px; padding: 22px 18px 26px; border: 1px solid var(--olive-line); border-radius: 28px; background: rgba(251,250,246,.82); box-shadow: var(--shadow); isolation: isolate; }
+      .menu-section::after { content:""; position:absolute; inset:0; pointer-events:none; background: linear-gradient(to top, rgba(251,250,246,.02), rgba(251,250,246,.02)); z-index:-1; }
+      .section-title { margin: 0 0 24px; color: var(--olive); font-family: var(--script); font-size: clamp(44px, 14.5vw, 72px); font-weight: 400; line-height: .9; letter-spacing: -.05em; white-space: nowrap; }
+      .content { position: relative; z-index: 2; max-width: 100%; }
+      .content--wide { max-width: 72%; }
+      .items, .matrix, .subgroups { display: grid; gap: 12px; }
+      .item { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px; align-items: start; }
+      .item-copy { min-width: 0; }
+      .item-name { margin: 0; font-size: 19px; line-height: 1.08; }
+      .kcal { margin-left: 6px; color: var(--muted); font-family: var(--ui-bold); font-size: 10px; font-weight: 400; letter-spacing: .02em; white-space: nowrap; }
+      .item-desc { margin: 6px 0 0; color: var(--olive); font-size: 15px; line-height: 1.33; }
+      .item-desc span { display: block; }
+      .price { min-width: 48px; text-align: right; font-family: var(--ui-bold); font-size: 13px; font-weight: 700; letter-spacing: .14em; line-height: 1.2; white-space: nowrap; }
+      .subgroup { margin-top: 20px; }
+      .subgroup:first-child { margin-top: 0; }
+      .subgroup-title, .option-label { margin: 0 0 12px; color: var(--olive); font-family: var(--ui-bold); font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; white-space: nowrap; }
+      .options-box { position: relative; z-index: 2; margin-top: 18px; padding: 14px; border: 1px solid var(--olive-line); border-radius: 18px; background: rgba(244,242,235,.7); }
+      .options-grid { display: grid; gap: 12px; }
+      .option-value { margin: 0; font-family: var(--ui-bold); font-size: 15px; font-weight: 700; }
+      .extras-list { display: grid; gap: 7px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--olive-line); }
+      .extra-row { display: grid; grid-template-columns: 1fr auto; gap: 12px; color: var(--muted); font-family: var(--ui-bold); font-size: 14px; font-weight: 700; }
+      .matrix-head, .matrix-row { display: grid; grid-template-columns: minmax(0, 1fr) 52px 52px; gap: 8px; align-items: start; }
+      .matrix-head { color: var(--olive); font-family: var(--ui-bold); font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+      .matrix-head span:not(:first-child), .matrix-row .price { text-align: center; }
+      .matrix-row .is-empty { color: transparent; user-select: none; }
+      .art-layer { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+      .art { position: absolute; opacity: .92; }
+      .art img { width: 100%; height: auto; object-fit: contain; }
+      .section-hot-coffee .content, .section-iced-coffee .content { max-width: 58%; }
+      .section-hot-coffee, .section-iced-coffee { padding-bottom: 280px; }
+      .section-hot-coffee .art-main { left: -8px; bottom: -6px; width: 59%; }
+      .section-iced-coffee .art-main { left: -12px; bottom: -6px; width: 62%; }
+      .section-hot-coffee .options-box, .section-iced-coffee .options-box { position: absolute; right: 18px; bottom: 28px; width: 36%; background: transparent; border: none; padding: 0; }
+      .section-hot-coffee .extras-list, .section-iced-coffee .extras-list { border-top: 0; padding-top: 0; margin-top: 14px; }
+      .section-hot-drinks .content { max-width: 70%; }
+      .section-hot-drinks { padding-bottom: 260px; }
+      .section-hot-drinks .art-left { left: -24px; bottom: -6px; width: 46%; }
+      .section-hot-drinks .art-right { right: -10px; bottom: -4px; width: 34%; }
+      .section-cold-drinks .content { max-width: 74%; }
+      .section-cold-drinks { padding-bottom: 250px; }
+      .section-cold-drinks .art-main { right: -8px; bottom: -4px; width: 42%; }
+      .section-brewed .content { max-width: 74%; }
+      .section-brewed { padding-bottom: 250px; }
+      .section-brewed .art-main { left: -20px; bottom: -14px; width: 44%; }
+      .section-brewed .art-branch { right: -40px; bottom: -10px; width: 68%; opacity: .88; }
+      .section-matcha .content { max-width: 78%; }
+      .section-matcha { padding-bottom: 250px; }
+      .section-matcha .art-left { left: -54px; bottom: 20px; width: 36%; opacity: .75; }
+      .section-matcha .art-right { right: -10px; bottom: -14px; width: 50%; }
+      .section-healthy .content { max-width: 76%; }
+      .section-healthy { padding-bottom: 280px; }
+      .section-healthy .art-left { left: -24px; bottom: -10px; width: 32%; }
+      .section-healthy .art-right { right: -16px; bottom: -12px; width: 52%; }
+      .section-bowl .content { max-width: 80%; }
+      .section-bowl { padding-bottom: 330px; }
+      .section-bowl .art-left { left: -24px; bottom: 120px; width: 40%; }
+      .section-bowl .art-center { left: 10%; bottom: -10px; width: 58%; }
+      .section-bowl .art-right { right: -18px; bottom: 20px; width: 28%; }
+      .section-sandvic .content { max-width: 82%; }
+      .section-sandvic { padding-bottom: 330px; }
+      .section-sandvic .art-main { left: -42px; bottom: -28px; width: 112%; }
+      .section-tatli .content { max-width: 82%; }
+      .section-tatli { padding-bottom: 260px; }
+      .section-tatli .art-main { left: -4px; bottom: 8px; width: 98%; }
+      .back-cover { position: relative; overflow: hidden; min-height: 92svh; padding: 24px 18px 34px; border-top: 1px solid var(--olive-line); }
+      .back-cover .building { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; opacity: .75; }
+      .back-cover .overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(247,246,241,.1), rgba(247,246,241,.46)); }
+      .back-inner { position: relative; z-index: 2; min-height: calc(92svh - 58px); display: flex; flex-direction: column; justify-content: space-between; align-items: center; gap: 18px; }
+      .back-top { width: 100%; display: flex; justify-content: center; }
+      .back-logo { width: min(170px, 48vw); }
+      .qr { width: 104px; padding: 8px; border: 1px solid var(--olive-line); border-radius: 14px; background: rgba(255,255,252,.7); }
+      @media (max-width: 380px) {
+        .site { width: 100%; }
+        .menu-section { padding-inline: 14px; }
+        .section-title { font-size: clamp(39px, 13.5vw, 56px); }
+        .item-name { font-size: 17px; }
+        .item-desc, .extra-row { font-size: 14px; }
+        .price { font-size: 12px; min-width: 42px; }
+      }
+      @media (min-width: 430px) { .site { width: min(100%, 520px); } }
+      @media (min-width: 760px) { .site { width: min(100%, 640px); } main { padding-inline: 16px; } .menu-section { padding-inline: 24px; } }
+      @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .category-nav a, .language-switch button { transition: none; } }
+    </style>
+  </head>
+
+  <body>
+    <div class="site">
+      <section class="cover" id="top" aria-label="Cover">
+        <div class="cover-inner">
+          <img class="cover-logo" src="./1. sayfa logo.png" alt="arsa Coffee Drink Dessert" />
+          <img class="cover-menu" src="./1. sayfa menu.png" alt="Menu" />
+          <div class="language-switch" aria-label="Language selection">
+            <button type="button" class="is-active" data-lang-button="tr">TR</button>
+            <button type="button" data-lang-button="en">ENG</button>
+          </div>
+          <p class="self-service">Self Service</p>
+        </div>
+      </section>
+
+      <nav class="category-nav-wrap" aria-label="Menu categories">
+        <div class="category-nav" id="categoryNav"></div>
+      </nav>
+
+      <main id="menuRoot"></main>
+
+      <section class="back-cover" aria-label="Back cover">
+        <img class="building" src="./arsa-building.jpg" alt="" loading="lazy" decoding="async" />
+        <div class="overlay"></div>
+        <div class="back-inner">
+          <div class="back-top">
+            <img class="back-logo" src="./1. sayfa logo.png" alt="arsa Coffee Drink Dessert" loading="lazy" decoding="async" />
+          </div>
+          <img class="qr" src="./1. sayfa qr.png" alt="QR" loading="lazy" decoding="async" />
+        </div>
+      </section>
+    </div>
+
+    <script>
+      const categories = [{"id":"hot-coffee","nav":{"tr":"Sıcak Kahve","en":"Hot Coffee"},"title":{"tr":"Sıcak Kahve","en":"Hot Coffee"},"class":"section-hot-coffee","art":"<div class=\"art art-main\"><img src=\"./sicak kave.png\" alt=\"\" loading=\"lazy\" decoding=\"async\" /></div>","content_class":"","type":"items","extras":true,"items":[{"name":{"tr":"Espresso","en":"Espresso"},"kcal":"3 / 5 kcal","price":"130 / 150"},{"name":{"tr":"Americano","en":"Americano"},"kcal":"10 kcal","price":"190"},{"name":{"tr":"Flat White","en":"Flat White"},"kcal":"25 kcal","price":"250"},{"name":{"tr":"Black Eye","en":"Black Eye"},"kcal":"25 kcal","price":"250"},{"name":{"tr":"Cortado","en":"Cortado"},"kcal":"50 kcal","price":"200"},{"name":{"tr":"Cappuccino","en":"Cappuccino"},"kcal":"95 kcal","price":"210"},{"name":{"tr":"Latte","en":"Latte"},"kcal":"140 kcal","price":"220"},{"name":{"tr":"Mocha","en":"Mocha"},"kcal":"250 kcal","price":"230"},{"name":{"tr":"White Chocolate Mocha","en":"White Chocolate Mocha"},"kcal":"280 kcal","price":"230"},{"name":{"tr":"Caramel Mocha","en":"Caramel Mocha"},"kcal":"190 kcal","price":"230"},{"name":{"tr":"Macchiato","en":"Macchiato"},"kcal":"140 kcal","price":"220"},{"name":{"tr":"Caramel Macchiato","en":"Caramel Macchiato"},"kcal":"190 kcal","price":"230"}]},{"id":"iced-coffee","nav":{"tr":"Soguk Kahve","en":"Iced Coffee"},"title":{"tr":"Soguk Kahve","en":"Iced Coffee"},"class":"section-iced-coffee","art":"<div class=\"art art-main\"><img src=\"./soguk kave.png\" alt=\"\" loading=\"lazy\" decoding=\"async\" /></div>","content_class":"","type":"items","extras":true,"items":[{"name":{"tr":"Iced Americano","en":"Iced Americano"},"kcal":"10 kcal","price":"200"},{"name":{"tr":"Airecano","en":"Airecano"},"kcal":"10 kcal","price":"240"},{"name":{"tr":"Espresso Tonic","en":"Espresso Tonic"},"kcal":"40 kcal","price":"220"},{"name":{"tr":"Black Eye","en":"Black Eye"},"kcal":"25 kcal","price":"260"},{"name":{"tr":"Iced Flat White","en":"Iced Flat White"},"kcal":"105 kcal","price":"260"},{"name":{"tr":"Iced Cappuccino","en":"Iced Cappuccino"},"kcal":"90 kcal","price":"220"},{"name":{"tr":"Iced Latte","en":"Iced Latte"},"kcal":"130 kcal","price":"230"},{"name":{"tr":"Iced Mocha","en":"Iced Mocha"},"kcal":"240 kcal","price":"240"},{"name":{"tr":"Iced White Chocolate Mocha","en":"Iced White Chocolate Mocha"},"kcal":"270 kcal","price":"360"},{"name":{"tr":"Iced Caramel Mocha","en":"Iced Caramel Mocha"},"kcal":"250 kcal","price":"240"},{"name":{"tr":"Iced Caramel Macchiato","en":"Iced Caramel Macchiato"},"kcal":"250 kcal","price":"230"},{"name":{"tr":"Orange Espresso","en":"Orange Espresso"},"kcal":"10 kcal","price":"280"},{"name":{"tr":"Affogato","en":"Affogato"},"kcal":"320 kcal","price":"260"}]},{"id":"hot-drinks","nav":{"tr":"Sıcak Içecekler","en":"Hot Drinks"},"title":{"tr":"Sıcak Içecekler","en":"Hot Drinks"},"class":"section-hot-drinks","art":"<div class=\"art art-left\"><img src=\"./sicak icecek.png\" alt=\"\" loading=\"lazy\" decoding=\"async\" /></div><div class=\"art art-right\"><img src=\"./demleme.png\" alt=\"\" loading=\"lazy\" decoding=\"async\" /></div>","content_class":"content--wide","type":"items","items":[{"name":{"tr":"Chai Tea Latte","en":"Chai Tea Latte"},"kcal":"200 kcal","price":"250"},{"name":{"tr":"Sıcak Çikolata","en":"Hot Chocolate"},"kcal":"300 kcal","price":"250"},{"name":{"tr":"Salep","en":"Salep"},"kcal":"250 kcal","price":"250"},{"name":{"tr":"Yaseminli Yeşil Çay","en":"Jasmine Green Tea"},"kcal":"2 kcal","price":"200"},{"name":{"tr":"Kış Çayı","en":"Winter Tea"},"kcal":"5 kcal","price":"200"},{"name":{"tr":"Nane-Limon","en":"Mint Lemon"},"kcal":"2 kcal","price":"200"},{"name":{"tr":"Papatya Çayı","en":"Chamomile Tea"},"kcal":"2 kcal","price":"200"},{"name":{"tr":"Hibiscus","en":"Hibiscus"},"kcal":"2 kcal","price":"200"},{"name":{"tr":"Melisa Çayı","en":"Melissa Tea"},"kcal":"2 kcal","price":"200"},{"name":{"tr":"Kırmızı Orman Meyveli Çay","en":"Red Forest Fruit Tea"},"kcal":"5 kcal","price":"240"},{"name":{"tr":"Çilek Ahududu","en":"Strawberry Raspberry Tea"},"kcal":"5 kcal","price":"240"},{"name":{"tr":"Elma Tarçın","en":"Apple Cinnamon Tea"},"kcal":"5 kcal","price":"240"},{"name":{"tr":"Tropikal Meyve Çayı","en":"Tropical Fruit Tea"},"kcal":"5 kcal","price":"240"},{"name":{"tr":"Beyaz Çay","en":"White Tea"},"kcal":"8 kcal","price":"450"}]},{"id":"cold-drinks","nav":{"tr":"Soguk Içecekler","en":"Cold Drinks"},"title":{"tr":"Soguk Içecekler","en":"Cold Drinks"},"class":"section-cold-drinks","art":"<div class=\"art art-main\"><img src=\"./soguk icecek.png\" alt=\"\" loading=\"lazy\" decoding=\"async\" /></div>","content_class":"content--wide","type":"items","items":[{"name":{"tr":"Limonata","en":"Lemonade"},"kcal":"130 kcal","price":"230"},{"name":{"tr":"Çilekli Limonata","en":"Strawberry Lemonade"},"kcal":"150 kcal","price":"250"},{"name":{"tr":"Hibiscus Limonata","en":"Hibiscus Lemonade"},"kcal":"140 kcal","price":"270"},{"name":{"tr":"Hibiscus","en":"Hibiscus"},"kcal":"90 kcal","price":"250"},{"name":{"tr":"Chai Tea Latte","en":"Chai Tea Latte"},"kcal":"200 kcal","price":"260"},{"name":{"tr":"Cool Lime","en":"Cool Lime"},"kcal":"110 kcal","price":"250"},{"name":{"tr":"Taze Portakal Suyu","en":"Fresh Orange Juice"},"kcal":"130 kcal","price":"280"},{"name":{"tr":"Taze Nar Suyu","en":"Fresh Pomegranate Juice"},"kcal":"180 kcal","price":"280"},{"name":{"tr":"Frozen","en":"Frozen"},"kcal":"220 kcal","price":"280","desc":{"tr":"Mango / Yeşil Elma / Karpuz / Çilek / Frambuaz","en":"Mango / Green Apple / Watermelon / Strawberry / Raspberry"}},{"name":{"tr":"Milkshake","en":"Milkshake"},"kcal":"380-470 kcal","price":"300","desc":{"tr":"Vanilya / Çikolata / Çilek / Oreo","en":"Vanilla / Chocolate / Strawberry / Oreo"}},{"name":{"tr":"Dondurma","en":"Ice Cream"},"kcal":"120 kcal","price":"140"},{"name":{"tr":"Churchill","en":"Churchill"},"kcal":"15 kcal","price":"150"},{"name":{"tr":"Tonic","en":"Tonic"},"kcal":"34 kcal","price":"120"},{"name":{"tr":"Soda","en":"Sparkling Water"},"kcal":"0 kcal","price":"80"},{"name":{"tr":"Su","en":"Water"},"kcal":"0 kcal","price":"60"}]},{"id":"brewed","nav":{"tr":"Demleme","en":"Brewed"},"title":{"tr":"Demleme","en":"Brewed"},"class":"section-brewed","art":"<div class=\"art art-main\"><img src=\"./demleme.png\" alt=\"\" loading=\"lazy\" decoding=\"async\" /></div><div class=\"art art-branch\"><img src=\"./matca.png\" alt=\"\" loading=\"lazy\" decoding=\"async\" /></div>","content_class":"content--wide","type":"items","items":[{"name":{"tr":"Çay","en":"Tea"},"kcal":"2 kcal","price":"50 / 100"},{"name":{"tr":"Türk Kahvesi - Kıvrak","en":"Turkish Coffee - Kıvrak"},"kcal":"5 kcal","price":"150 / 180"},{"name":{"tr":"Türk Kahvesi - Mehmet Efendi","en":"Turkish Coffee - Mehmet Efendi"},"kcal":"5 kcal","price":"150 / 180"},{"name":{"tr":"Filtre Kahve - Ice / Hot","en":"Filter Coffee - Iced / Hot"},"kcal":"5 kcal","price":"200 / 180"},{"name":{"tr":"V60","en":"V60"},"kcal":"5 kcal","price":"280"},{"name":{"tr":"Cold Brew","en":"Cold Brew"},"kcal":"3 kcal","price":"190"}]},{"id":"matcha","nav":{"tr":"Matcha","en":"Matcha"},"title":{"tr":"Matcha","en":"Matcha"},"class":"section-matcha","art":"<div class=\"art art-left\"><img src=\"./ealt2.png\" alt=\"\" loading=\"lazy\" decoding=\"async\" /></div><div class=\"art art-right\"><img src=\"./matca.png\" alt=\"\" loading=\"lazy\" decoding=\"async\" /></div>","content_class":"content--wide","type":"matrix","items":[{"name":{"tr":"Matcha Latte","en":"Matcha Latte"},"kcal":"150 kcal","hot":"300","iced":"300"},{"name":{"tr":"Vanilya Matcha Latte","en":"Vanilla Matcha Latte"},"kcal":"200 kcal","hot":"330","iced":"330"},{"name":{"tr":"Strawberry Matcha Latte","en":"Strawberry Matcha Latte"},"kcal":"210 kcal","hot":"","iced":"360"},{"name":{"tr":"Banana Matcha Latte","en":"Banana Matcha Latte"},"kcal":"230 kcal","hot":"","iced":"390"},{"name":{"tr":"Hibiscus Lemonade Matcha","en":"Hibiscus Lemonade Matcha"},"kcal":"160 kcal","hot":"","iced":"390"},{"name":{"tr":"White Chocolate Matcha","en":"White Chocolate Matcha"},"kcal":"280 kcal","hot":"360","iced":"360"}]},{"id":"healthy","nav":{"tr":"Healthy","en":"Healthy"},"title":{"tr":"Healthy","en":"Healthy"},"class":"section-healthy","art":"<div class=\"art art-left\"><img src=\"./ealty.png\" alt=\"\" loading=\"lazy\" decoding=\"async\" /></div><div class=\"art art-right\"><img src=\"./ealt2.png\" alt=\"\" loading=\"lazy\" decoding=\"async\" /></div>","content_class":"content--wide","type":"groups","groups":[{"title":{"tr":"DETOX SUYU","en":"DETOX WATER"},"items":[{"name":{"tr":"Pure Green Detox","en":"Pure Green Detox"},"kcal":"90 kcal","price":"250","desc":{"tr":"Salatalık + Limon + Nane","en":"Cucumber + Lemon + Mint"}},{"name":{"tr":"Tropical Detox","en":"Tropical Detox"},"kcal":"140 kcal","price":"280","desc":{"tr":"Ananas + Portakal + Zencefil","en":"Pineapple + Orange + Ginger"}}]},{"title":{"tr":"DETOX SHOT","en":"DETOX SHOT"},"items":[{"name":{"tr":"Energy Shot","en":"Energy Shot"},"kcal":"35 kcal","price":"220","desc":{"tr":"Portakal, Limon, Zencefil","en":"Orange, Lemon, Ginger"}},{"name":{"tr":"Glow Shot","en":"Glow Shot"},"kcal":"25 kcal","price":"220","desc":{"tr":"Salatalık, Limon, Maydanoz, Yeşil Elma","en":"Cucumber, Lemon, Parsley, Green Apple"}},{"name":{"tr":"Retinol Shot","en":"Retinol Shot"},"kcal":"35 kcal","price":"220","desc":{"tr":"Havuç, Limon, Portakal, Zencefil","en":"Carrot, Lemon, Orange, Ginger"}}]},{"title":{"tr":"PROTEIN SHAKE","en":"PROTEIN SHAKE"},"items":[{"name":{"tr":"Protein Shake","en":"Protein Shake"},"kcal":"320-350 kcal","price":"350","desc":{"tr":"Muz - Fıstık Ezmesi - Süt - Buz - Protein Tozu","en":"Banana - Peanut Butter - Milk - Ice - Protein Powder"}}],"option":{"label":{"tr":"Aroma Seçenekleri","en":"Flavor Options"},"value":{"tr":"Muz / Çikolata","en":"Banana / Chocolate"}}}]},{"id":"bowl","nav":{"tr":"Bowl","en":"Bowl"},"title":{"tr":"Bowl","en":"Bowl"},"class":"section-bowl","art":"<div class=\"art art-left\"><img src=\"./bowl2.png\" alt=\"\" loading=\"lazy\" decoding=\"async\" /></div><div class=\"art art-center\"><img src=\"./bowl.png\" alt=\"\" loading=\"lazy\" decoding=\"async\" /></div><div class=\"art art-right\"><img src=\"./ealt2.png\" alt=\"\" loading=\"lazy\" decoding=\"async\" /></div>","content_class":"","type":"items","items":[{"name":{"tr":"High Protein Bowl","en":"High Protein Bowl"},"kcal":"420 kcal","price":"550","desc":{"tr":"Yoğurt, Protein Tozu, Muz\nMuz ya da Kırmızı Meyve, Granola, Hindistan Cevizi, Fındık Ezmesi","en":"Yogurt, Protein Powder, Banana\nBanana or Red Berries, Granola, Coconut, Hazelnut Butter"}},{"name":{"tr":"Tropical Bowl","en":"Tropical Bowl"},"kcal":"330 kcal","price":"500","desc":{"tr":"Yoğurt, Frambuaz, Böğürtlen, Çilek, Bal\nYaban Mersini, Granola, Hindistan Cevizi, Fındık Ezmesi, Çilek","en":"Yogurt, Raspberry, Blackberry, Strawberry, Honey\nBlueberry, Granola, Coconut, Hazelnut Butter, Strawberry"}}]},{"id":"sandvic","nav":{"tr":"Sandviç","en":"Sandwich"},"title":{"tr":"Sandviç","en":"Sandwich"},"class":"section-sandvic","art":"<div class=\"art art-main\"><img src=\"./sandvic.png\" alt=\"\" loading=\"lazy\" decoding=\"async\" /></div>","content_class":"content--wide","type":"items","items":[{"name":{"tr":"Hindi Füme Sandviç","en":"Smoked Turkey Sandwich"},"kcal":"490 kcal","price":"400","desc":{"tr":"Un, Su, Tuz, Maya\nRoka, Domates, Pesto, Mozzarella, Taze Peynir, Roka, Hindi Füme","en":"Flour, Water, Salt, Yeast\nRocket, Tomato, Pesto, Mozzarella, Fresh Cheese, Rocket, Smoked Turkey"}},{"name":{"tr":"Füme Etli Sandviç","en":"Smoked Beef Sandwich"},"kcal":"520 kcal","price":"460","desc":{"tr":"Un, Su, Tuz, Maya\nRoka, Domates, Pesto, Mozzarella, Taze Peynir, Roka, Füme Et","en":"Flour, Water, Salt, Yeast\nRocket, Tomato, Pesto, Mozzarella, Fresh Cheese, Rocket, Smoked Beef"}},{"name":{"tr":"Foccacia Sandviç","en":"Focaccia Sandwich"},"kcal":"480 kcal","price":"440","desc":{"tr":"Zeytinyağı, Un, Tuz, Su, Maya, Yeşil Zeytin, Domates\nKuru Domates, Pesto, Mozzarella, Taze Peynir, Roka","en":"Olive Oil, Flour, Salt, Water, Yeast, Green Olive, Tomato\nSun-dried Tomato, Pesto, Mozzarella, Fresh Cheese, Rocket"}}]},{"id":"tatli","nav":{"tr":"Tatlı","en":"Dessert"},"title":{"tr":"Tatlı","en":"Dessert"},"class":"section-tatli","art":"<div class=\"art art-main\"><img src=\"./tatli.png\" alt=\"\" loading=\"lazy\" decoding=\"async\" /></div>","content_class":"content--wide","type":"items","items":[{"name":{"tr":"San Sebastian","en":"San Sebastian"},"kcal":"450 kcal","price":"360","desc":{"tr":"Extra Çikolata +20  /  +80 kcal","en":"Extra Chocolate +20  /  +80 kcal"}},{"name":{"tr":"Cheesecake","en":"Cheesecake"},"kcal":"420 kcal","price":"350"},{"name":{"tr":"Tiramisu","en":"Tiramisu"},"kcal":"380 kcal","price":"340"},{"name":{"tr":"Mus","en":"Mousse"},"kcal":"330 kcal","price":"360"},{"name":{"tr":"Muz Tart","en":"Banana Tart"},"kcal":"380 kcal","price":"320"},{"name":{"tr":"Çilek Tart","en":"Strawberry Tart"},"kcal":"350 kcal","price":"340"},{"name":{"tr":"Berry Tart","en":"Berry Tart"},"kcal":"360 kcal","price":"360"},{"name":{"tr":"Hurmalı Fit Browni","en":"Date Fit Brownie"},"kcal":"350 kcal","price":"400"},{"name":{"tr":"Cookie","en":"Cookie"},"kcal":"300 kcal","price":"260"},{"name":{"tr":"Browni","en":"Brownie"},"kcal":"400 kcal","price":"370"},{"name":{"tr":"Anne Keki","en":"Homemade Cake"},"kcal":"280 kcal","price":"200"}]}];
+      const extras = {
+        tr: {
+          milkLabel: "Süt Seçenekleri",
+          milk: "Laktosuz +20 / Badem +40 / Yulaf +40",
+          syrupLabel: "Şurup Seçenekleri",
+          syrup: "Vanilya +20 / Karamel +20 / Fındık +20 / Salt Caramel +20 / Cookies +20 / Tiramisu +20",
+          espresso: "Extra Espresso Shot",
+          hot: "Sıcak",
+          iced: "Soguk"
+        },
+        en: {
+          milkLabel: "Milk Options",
+          milk: "Lactose-Free +20 / Almond +40 / Oat +40",
+          syrupLabel: "Syrup Options",
+          syrup: "Vanilla +20 / Caramel +20 / Hazelnut +20 / Salt Caramel +20 / Cookies +20 / Tiramisu +20",
+          espresso: "Extra Espresso Shot",
+          hot: "Hot",
+          iced: "Iced"
+        }
+      };
+      const languageButtons = [...document.querySelectorAll("[data-lang-button]")];
+      const nav = document.getElementById("categoryNav");
+      const root = document.getElementById("menuRoot");
+      let observer;
+
+      function textLines(value) {
+        if (!value) return "";
+        return String(value).split("\n").map((line) => `<span>${line}</span>`).join("");
+      }
+
+      function itemHtml(item, lang) {
+        const kcal = item.kcal ? `<span class="kcal">${item.kcal}</span>` : "";
+        const desc = item.desc ? `<p class="item-desc">${textLines(item.desc[lang])}</p>` : "";
+        return `
+          <div class="item">
+            <div class="item-copy"><p class="item-name">${item.name[lang]}${kcal}</p>${desc}</div>
+            <div class="price">${item.price}</div>
+          </div>`;
+      }
+
+      function matrixHtml(cat, lang) {
+        return `
+          <div class="matrix">
+            <div class="matrix-head"><span></span><span>${extras[lang].hot}</span><span>${extras[lang].iced}</span></div>
+            ${cat.items.map((item) => {
+              const kcal = item.kcal ? `<span class="kcal">${item.kcal}</span>` : "";
+              return `<div class="matrix-row"><p class="item-name">${item.name[lang]}${kcal}</p><div class="price ${item.hot ? "" : "is-empty"}">${item.hot || "."}</div><div class="price ${item.iced ? "" : "is-empty"}">${item.iced || "."}</div></div>`;
+            }).join("")}
+          </div>`;
+      }
+
+      function groupsHtml(cat, lang) {
+        return `<div class="subgroups">${cat.groups.map((group) => `
+          <div class="subgroup">
+            <h3 class="subgroup-title">${group.title[lang]}</h3>
+            <div class="items">${group.items.map((item) => itemHtml(item, lang)).join("")}</div>
+            ${group.option ? `<div class="options-box"><p class="option-label">${group.option.label[lang]}</p><p class="option-value">${group.option.value[lang]}</p></div>` : ""}
+          </div>`).join("")}</div>`;
+      }
+
+      function extrasHtml(lang) {
+        return `
+          <div class="options-box extras-coffee">
+            <div class="options-grid">
+              <div><p class="option-label">${extras[lang].milkLabel}</p><p class="option-value">${extras[lang].milk}</p></div>
+              <div><p class="option-label">${extras[lang].syrupLabel}</p><p class="option-value">${extras[lang].syrup}</p></div>
+            </div>
+            <div class="extras-list">
+              <div class="extra-row"><span>${extras[lang].espresso}</span><span>+40</span></div>
+            </div>
+          </div>`;
+      }
+
+      function renderMenu(lang) {
+        document.documentElement.lang = lang;
+        languageButtons.forEach((button) => button.classList.toggle("is-active", button.dataset.langButton === lang));
+        nav.innerHTML = categories.map((cat) => `<a href="#${cat.id}">${cat.nav[lang]}</a>`).join("");
+        root.innerHTML = categories.map((cat) => {
+          let body = "";
+          if (cat.type === "matrix") body = matrixHtml(cat, lang);
+          else if (cat.type === "groups") body = groupsHtml(cat, lang);
+          else body = `<div class="items">${cat.items.map((item) => itemHtml(item, lang)).join("")}</div>`;
+          return `<section class="menu-section ${cat.class}" id="${cat.id}">
+            <div class="art-layer">${cat.art}</div>
+            <div class="content ${cat.content_class || ""}">
+              <h2 class="section-title">${cat.title[lang]}</h2>
+              ${body}
+            </div>
+            ${cat.extras ? extrasHtml(lang) : ""}
+          </section>`;
+        }).join("");
+        setupObserver();
+      }
+
+      function setupObserver() {
+        if (observer) observer.disconnect();
+        const links = [...document.querySelectorAll(".category-nav a")];
+        const sections = links.map((link) => document.querySelector(link.getAttribute("href"))).filter(Boolean);
+        observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            links.forEach((link) => link.classList.remove("is-active"));
+            const active = document.querySelector(`.category-nav a[href="#${entry.target.id}"]`);
+            if (active) {
+              active.classList.add("is-active");
+              active.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
+            }
+          });
+        }, { rootMargin: "-35% 0px -55% 0px", threshold: 0.01 });
+        sections.forEach((section) => observer.observe(section));
+      }
+
+      languageButtons.forEach((button) => button.addEventListener("click", () => renderMenu(button.dataset.langButton)));
+      renderMenu("tr");
+    </script>
+  </body>
+</html>
