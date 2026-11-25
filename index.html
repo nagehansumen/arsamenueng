@@ -28,6 +28,7 @@
       "addressCountry": "TR"
     },
     "hasMenu": "menu/index.html",
+    "hasMap": "https://www.google.com/maps/search/?api=1&query=arsa+Coffee+Akarca+Fethiye&query_place_id=ChIJySPGHABDwBQRlEegyDfY9ZU",
     "sameAs": ["https://www.instagram.com/arsacoffeeco/"]
   }
   </script>
@@ -121,6 +122,27 @@
     .gallery figure:hover img { transform: scale(1.03); }
     .g-tall { aspect-ratio: 2 / 3; }
     .g-wide { grid-column: span 2; aspect-ratio: 3 / 2; }
+    .g-full { grid-column: span 2; aspect-ratio: 4 / 5; }
+    .gallery figure { cursor: zoom-in; }
+    .gallery figure:focus-visible { outline: 2px solid var(--olive); outline-offset: 3px; }
+
+    /* ---------- lightbox ---------- */
+    .lb { position: fixed; inset: 0; z-index: 100; display: none; align-items: center; justify-content: center; background: rgba(18,19,13,.94); touch-action: pan-y; }
+    .lb.is-open { display: flex; }
+    .lb img { max-width: min(94vw, 1400px); max-height: 86svh; width: auto; height: auto; border-radius: 10px; box-shadow: 0 20px 60px rgba(0,0,0,.4); user-select: none; -webkit-user-drag: none; }
+    .lb-btn { position: absolute; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 999px; background: rgba(251,250,246,.12); color: #fbfaf6; font-family: var(--ui); font-size: 22px; line-height: 1; }
+    .lb-btn:hover { background: rgba(251,250,246,.24); }
+    .lb-close { top: max(16px, env(safe-area-inset-top)); right: 16px; }
+    .lb-prev { left: 16px; top: 50%; transform: translateY(-50%); }
+    .lb-next { right: 16px; top: 50%; transform: translateY(-50%); }
+    .lb-count { position: absolute; bottom: max(18px, env(safe-area-inset-bottom)); left: 0; right: 0; text-align: center; color: rgba(251,250,246,.7); font-family: var(--ui); font-size: 12px; letter-spacing: .14em; }
+    @media (max-width: 600px) { .lb-prev, .lb-next { top: auto; bottom: max(8px, env(safe-area-inset-bottom)); transform: none; } .lb-count { bottom: max(24px, env(safe-area-inset-bottom)); } }
+
+    /* ---------- google review ---------- */
+    .review-link { display: inline-flex; align-items: center; gap: 10px; margin-top: 18px; font-family: var(--ui); font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+    .review-link .stars { color: #f2c94c; font-size: 14px; letter-spacing: .08em; }
+    .review-link span:last-child { text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 1px; }
+    .review-link:hover span:last-child { text-decoration-thickness: 2px; }
     .gallery-label { grid-column: 1 / -1; display: flex; align-items: baseline; gap: 14px; margin: 34px 0 8px; }
     .gallery-label:first-child { margin-top: 0; }
     .gallery-label h3 { margin: 0; font-family: var(--script); font-weight: 400; font-size: clamp(44px, 9vw, 64px); line-height: 1; color: var(--olive); }
@@ -130,13 +152,10 @@
       .gallery figure { aspect-ratio: auto; height: clamp(360px, 40vw, 560px); }
       .gallery .in-1 { grid-column: 1 / span 5; }
       .gallery .in-2 { grid-column: 6 / span 7; }
-      .gallery .in-3 { grid-column: 1 / span 7; }
-      .gallery .in-4 { grid-column: 8 / span 5; }
-      .gallery .out-1 { grid-column: 1 / span 5; }
-      .gallery .out-2 { grid-column: 6 / span 7; }
-      .gallery .out-3 { grid-column: 1 / span 7; }
-      .gallery .out-4 { grid-column: 8 / span 5; }
-      .gallery .in-2 img { object-position: 50% 45%; }
+      .gallery .out-1 { grid-column: 1 / span 7; }
+      .gallery .out-2 { grid-column: 8 / span 5; }
+      .gallery .out-3, .gallery .out-4, .gallery .out-5 { grid-column: span 4; height: clamp(300px, 30vw, 420px); }
+      .gallery .tb-1, .gallery .tb-2, .gallery .tb-3 { grid-column: span 4; height: auto; aspect-ratio: 4 / 5; }
     }
 
     /* ---------- menu ---------- */
@@ -237,8 +256,9 @@
         <p class="hero-meta" data-i18n="hero_meta">Akarca, Fethiye. Kahve, demleme, matcha, bowl ve tatlı.</p>
         <div class="hero-actions">
           <a class="btn btn-solid" href="menu/index.html" data-i18n="cta_menu">Menüyü aç</a>
-          <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&query=arsa+Coffee+Yunus+Nadi+Cd.+no1b+Akarca+Fethiye" target="_blank" rel="noopener" data-i18n="cta_route">Yol tarifi</a>
+          <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&amp;query=arsa+Coffee+Akarca+Fethiye&amp;query_place_id=ChIJySPGHABDwBQRlEegyDfY9ZU" target="_blank" rel="noopener" data-i18n="cta_route">Yol tarifi</a>
         </div>
+        <a class="review-link" href="https://search.google.com/local/writereview?placeid=ChIJySPGHABDwBQRlEegyDfY9ZU" target="_blank" rel="noopener"><span class="stars" aria-hidden="true">★★★★★</span><span data-i18n="cta_review">Google'da yorum yaz</span></a>
       </div>
     </section>
 
@@ -251,16 +271,20 @@
 
         <div class="gallery">
           <div class="gallery-label reveal"><h3 data-i18n="inside">İçeride</h3></div>
-          <figure class="g-tall in-1 reveal"><img src="assets/photos/pencere-bar-800.jpg" srcset="assets/photos/pencere-bar-800.jpg 800w, assets/photos/pencere-bar-1600.jpg 1600w" sizes="(min-width: 900px) 33vw, 50vw" alt="Pencere kenarında ahşap bar ve saksı bitkileri" loading="lazy" /></figure>
-          <figure class="g-tall in-2 reveal"><img src="assets/photos/bar-bitki-800.jpg" srcset="assets/photos/bar-bitki-800.jpg 800w, assets/photos/bar-bitki-1600.jpg 1600w" sizes="(min-width: 900px) 66vw, 50vw" alt="Bar, raflar ve arsa yazısı" loading="lazy" /></figure>
-          <figure class="g-wide in-3 reveal"><img src="assets/photos/bar-genis-800.jpg" srcset="assets/photos/bar-genis-800.jpg 800w, assets/photos/bar-genis-1600.jpg 1600w" sizes="(min-width: 900px) 58vw, 100vw" alt="Bar arkasındaki raflar ve kahve ekipmanı" loading="lazy" /></figure>
-          <figure class="g-wide in-4 reveal"><img src="assets/photos/tezgah-800.jpg" srcset="assets/photos/tezgah-800.jpg 800w, assets/photos/tezgah-1600.jpg 1600w" sizes="(min-width: 900px) 42vw, 100vw" alt="Tezgâh ve vitrin" loading="lazy" style="object-position: 50% 62%" /></figure>
+          <figure class="g-tall in-1 reveal"><img src="assets/photos/pencere-bar-800.jpg" srcset="assets/photos/pencere-bar-800.jpg 800w, assets/photos/pencere-bar-1600.jpg 1600w" sizes="(min-width: 900px) 42vw, 50vw" alt="Pencere kenarında ahşap bar ve saksı bitkileri" loading="lazy" /></figure>
+          <figure class="g-tall in-2 reveal"><img src="assets/photos/bar-bitki-800.jpg" srcset="assets/photos/bar-bitki-800.jpg 800w, assets/photos/bar-bitki-1600.jpg 1600w" sizes="(min-width: 900px) 58vw, 50vw" alt="Bar, raflar ve arsa yazısı" loading="lazy" style="object-position: 50% 45%" /></figure>
 
           <div class="gallery-label reveal"><h3 data-i18n="outside">Dışarıda</h3></div>
-          <figure class="g-tall out-1 reveal"><img src="assets/photos/bahce-semsiye-800.jpg" srcset="assets/photos/bahce-semsiye-800.jpg 800w, assets/photos/bahce-semsiye-1600.jpg 1600w" sizes="(min-width: 900px) 42vw, 50vw" alt="Bahçede şemsiyeler ve hasır sandalyeler" loading="lazy" /></figure>
-          <figure class="g-tall out-2 reveal"><img src="assets/photos/pencereden-bahce-800.jpg" srcset="assets/photos/pencereden-bahce-800.jpg 800w, assets/photos/pencereden-bahce-1600.jpg 1600w" sizes="(min-width: 900px) 58vw, 50vw" alt="Pencereden bahçe ve zeytin ağaçları" loading="lazy" /></figure>
-          <figure class="g-wide out-3 reveal"><img src="assets/photos/pencere-dis-800.jpg" srcset="assets/photos/pencere-dis-800.jpg 800w, assets/photos/pencere-dis-1600.jpg 1600w" sizes="(min-width: 900px) 66vw, 100vw" alt="Dışarıdan pencere kenarındaki yeşil sandalyeler" loading="lazy" /></figure>
-          <figure class="g-wide out-4 reveal"><img src="assets/photos/cephe-800.jpg" srcset="assets/photos/cephe-800.jpg 800w, assets/photos/cephe-1600.jpg 1600w" sizes="(min-width: 900px) 33vw, 100vw" alt="arsa cephesi ve tabelası" loading="lazy" /></figure>
+          <figure class="g-full out-1 reveal"><img src="assets/photos/bahce-sohbet-800.jpg" srcset="assets/photos/bahce-sohbet-800.jpg 800w, assets/photos/bahce-sohbet-1600.jpg 1600w" sizes="(min-width: 900px) 58vw, 100vw" alt="Zeytin ağaçlarının altında çimde oturan bir grup" loading="lazy" style="object-position: 50% 62%" /></figure>
+          <figure class="g-tall out-2 reveal"><img src="assets/photos/bahce-semsiye-800.jpg" srcset="assets/photos/bahce-semsiye-800.jpg 800w, assets/photos/bahce-semsiye-1600.jpg 1600w" sizes="(min-width: 900px) 42vw, 50vw" alt="Bahçede şemsiyeler ve hasır sandalyeler" loading="lazy" /></figure>
+          <figure class="g-tall out-3 reveal"><img src="assets/photos/pencereden-bahce-800.jpg" srcset="assets/photos/pencereden-bahce-800.jpg 800w, assets/photos/pencereden-bahce-1600.jpg 1600w" sizes="(min-width: 900px) 33vw, 50vw" alt="Pencereden bahçe ve zeytin ağaçları" loading="lazy" /></figure>
+          <figure class="g-wide out-4 reveal"><img src="assets/photos/pencere-dis-800.jpg" srcset="assets/photos/pencere-dis-800.jpg 800w, assets/photos/pencere-dis-1600.jpg 1600w" sizes="(min-width: 900px) 33vw, 100vw" alt="Dışarıdan pencere kenarındaki yeşil sandalyeler" loading="lazy" /></figure>
+          <figure class="g-wide out-5 reveal"><img src="assets/photos/cephe-800.jpg" srcset="assets/photos/cephe-800.jpg 800w, assets/photos/cephe-1600.jpg 1600w" sizes="(min-width: 900px) 33vw, 100vw" alt="arsa cephesi ve tabelası" loading="lazy" style="object-position: 50% 12%" /></figure>
+
+          <div class="gallery-label reveal"><h3 data-i18n="table">Masada</h3></div>
+          <figure class="g-full tb-1 reveal"><img src="assets/photos/masa-cheesecake-800.jpg" srcset="assets/photos/masa-cheesecake-800.jpg 800w, assets/photos/masa-cheesecake-1600.jpg 1600w" sizes="(min-width: 900px) 33vw, 100vw" alt="Tepside cheesecake, buzlu latte ve limonata" loading="lazy" /></figure>
+          <figure class="g-tall tb-2 reveal"><img src="assets/photos/masa-bowl-800.jpg" srcset="assets/photos/masa-bowl-800.jpg 800w, assets/photos/masa-bowl-1600.jpg 1600w" sizes="(min-width: 900px) 33vw, 50vw" alt="Granola, meyve ve hindistan cevizli bowl" loading="lazy" /></figure>
+          <figure class="g-tall tb-3 reveal"><img src="assets/photos/masa-tart-800.jpg" srcset="assets/photos/masa-tart-800.jpg 800w, assets/photos/masa-tart-1600.jpg 1600w" sizes="(min-width: 900px) 33vw, 50vw" alt="Domatesli ve kabak çekirdekli tart" loading="lazy" /></figure>
         </div>
       </div>
     </section>
@@ -290,13 +314,14 @@
           <div class="reveal">
             <h2 class="script-title" data-i18n="nav_visit">Ziyaret</h2>
             <ul class="info">
-              <li><span class="k" data-i18n="k_address">Adres</span><a class="v" href="https://www.google.com/maps/search/?api=1&query=arsa+Coffee+Yunus+Nadi+Cd.+no1b+Akarca+Fethiye" target="_blank" rel="noopener">Akarca, Yunus Nadi Cd. no1b<br />48300 Fethiye / Muğla</a></li>
+              <li><span class="k" data-i18n="k_address">Adres</span><a class="v" href="https://www.google.com/maps/search/?api=1&amp;query=arsa+Coffee+Akarca+Fethiye&amp;query_place_id=ChIJySPGHABDwBQRlEegyDfY9ZU" target="_blank" rel="noopener">Akarca, Yunus Nadi Cd. no1b<br />48300 Fethiye / Muğla</a></li>
               <li><span class="k" data-i18n="k_phone">Telefon</span><a class="v" href="tel:+905380384461">0538 038 44 61</a></li>
               <li><span class="k">Instagram</span><a class="v" href="https://www.instagram.com/arsacoffeeco/" target="_blank" rel="noopener">@arsacoffeeco</a></li>
             </ul>
             <div class="menu-actions">
-              <a class="btn btn-solid" href="https://www.google.com/maps/search/?api=1&query=arsa+Coffee+Yunus+Nadi+Cd.+no1b+Akarca+Fethiye" target="_blank" rel="noopener" data-i18n="cta_route">Yol tarifi</a>
+              <a class="btn btn-solid" href="https://www.google.com/maps/search/?api=1&amp;query=arsa+Coffee+Akarca+Fethiye&amp;query_place_id=ChIJySPGHABDwBQRlEegyDfY9ZU" target="_blank" rel="noopener" data-i18n="cta_route">Yol tarifi</a>
               <a class="btn btn-ghost" href="tel:+905380384461" style="color: var(--olive)" data-i18n="cta_call">Ara</a>
+              <a class="btn btn-ghost" href="https://search.google.com/local/writereview?placeid=ChIJySPGHABDwBQRlEegyDfY9ZU" target="_blank" rel="noopener" style="color: var(--olive)" data-i18n="cta_review_short">Yorum yaz</a>
             </div>
           </div>
           <img class="visit-art reveal" src="assets/img/cephe-cizim.webp" alt="arsa cephesinin çizimi" loading="lazy" width="1004" height="1359" />
@@ -330,14 +355,23 @@
         </div>
         <nav class="footer-links" aria-label="Footer">
           <a href="menu/index.html" data-i18n="nav_menu">Menü</a>
-          <a href="https://www.google.com/maps/search/?api=1&query=arsa+Coffee+Yunus+Nadi+Cd.+no1b+Akarca+Fethiye" target="_blank" rel="noopener" data-i18n="cta_route">Yol tarifi</a>
+          <a href="https://www.google.com/maps/search/?api=1&amp;query=arsa+Coffee+Akarca+Fethiye&amp;query_place_id=ChIJySPGHABDwBQRlEegyDfY9ZU" target="_blank" rel="noopener" data-i18n="cta_route">Yol tarifi</a>
           <a href="tel:+905380384461">0538 038 44 61</a>
           <a href="https://www.instagram.com/arsacoffeeco/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://search.google.com/local/writereview?placeid=ChIJySPGHABDwBQRlEegyDfY9ZU" target="_blank" rel="noopener" data-i18n="cta_review_short">Yorum yaz</a>
         </nav>
       </div>
       <p class="footer-small">© <span id="year">2026</span> arsa Coffee Co · Akarca, Fethiye</p>
     </div>
   </footer>
+
+  <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Fotoğraf">
+    <img id="lbImg" alt="" />
+    <button class="lb-btn lb-close" type="button" data-lb="close" aria-label="Kapat">×</button>
+    <button class="lb-btn lb-prev" type="button" data-lb="prev" aria-label="Önceki">‹</button>
+    <button class="lb-btn lb-next" type="button" data-lb="next" aria-label="Sonraki">›</button>
+    <p class="lb-count" id="lbCount"></p>
+  </div>
 
   <script>
     /* ---------------- Instagram ----------------
@@ -346,7 +380,7 @@
        mekân fotoğrafları Instagram profiline bağlanarak gösterilir. */
     const BEHOLD_FEED_URL = "";
     const IG_PROFILE = "https://www.instagram.com/arsacoffeeco/";
-    const IG_FALLBACK = ["bahce-nar", "matcha-menu", "pencere-bar", "bar-genis", "bahce-semsiye", "cephe"];
+    const IG_FALLBACK = ["bahce-sohbet", "masa-cheesecake", "matcha-menu", "masa-bowl", "pencere-bar", "masa-tart"];
 
     const categories = [
       ["hot-coffee", "Sıcak Kahve", "Hot Coffee"], ["iced-coffee", "Soğuk Kahve", "Iced Coffee"],
@@ -364,7 +398,8 @@
         cta_menu: "Menüyü aç", cta_route: "Yol tarifi", cta_full_menu: "Tüm menü", cta_call: "Ara", cta_follow: "Takip et",
         place_title: "Mekân",
         place_lead: "İçeride pencere kenarı ve bitkiler. Dışarıda nar ve zeytin ağaçlarının altında çim. Siparişini bardan al, istediğin yere geç.",
-        inside: "İçeride", outside: "Dışarıda",
+        inside: "İçeride", outside: "Dışarıda", table: "Masada",
+        cta_review: "Google'da yorum yaz", cta_review_short: "Yorum yaz",
         menu_lead: "Masadaki QR koddan açılan menünün aynısı. Kategoriye dokun, doğrudan oraya git.",
         menu_note: "Self servis. Fiyatlara KDV dahildir.",
         phone_caption: "Canlı menü · kaydırabilirsin",
@@ -378,7 +413,8 @@
         cta_menu: "Open the menu", cta_route: "Directions", cta_full_menu: "Full menu", cta_call: "Call", cta_follow: "Follow",
         place_title: "The place",
         place_lead: "Inside: a window bar and plenty of plants. Outside: grass under pomegranate and olive trees. Order at the bar, then pick your spot.",
-        inside: "Inside", outside: "Outside",
+        inside: "Inside", outside: "Outside", table: "On the table",
+        cta_review: "Review us on Google", cta_review_short: "Write a review",
         menu_lead: "The same menu you open from the QR code on your table. Tap a category to jump straight to it.",
         menu_note: "Self service. Prices include VAT.",
         phone_caption: "Live menu · scroll inside",
@@ -448,6 +484,44 @@
       } catch (e) { renderFallback(); }
     }
     loadInstagram();
+
+    /* fotoğrafa dokununca büyüt */
+    {
+      const figs = [...document.querySelectorAll(".gallery figure")];
+      const lb = document.getElementById("lb"), lbImg = document.getElementById("lbImg"), lbCount = document.getElementById("lbCount");
+      let idx = 0, lastFocus = null, startX = null;
+      const big = (img) => img.getAttribute("src").replace("-800.jpg", "-1600.jpg");
+      function show(i) {
+        idx = (i + figs.length) % figs.length;
+        const img = figs[idx].querySelector("img");
+        lbImg.src = big(img); lbImg.alt = img.alt;
+        lbCount.textContent = (idx + 1) + " / " + figs.length;
+      }
+      function open(i) { lastFocus = document.activeElement; show(i); lb.classList.add("is-open"); document.body.style.overflow = "hidden"; lb.querySelector(".lb-close").focus(); }
+      function close() { lb.classList.remove("is-open"); document.body.style.overflow = ""; if (lastFocus) lastFocus.focus(); }
+      figs.forEach((f, i) => {
+        f.tabIndex = 0; f.setAttribute("role", "button");
+        f.addEventListener("click", () => open(i));
+        f.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(i); } });
+      });
+      lb.addEventListener("click", (e) => {
+        const a = e.target.closest("[data-lb]");
+        if (a) { const k = a.dataset.lb; if (k === "close") close(); else show(idx + (k === "next" ? 1 : -1)); }
+        else if (e.target === lb) close();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (!lb.classList.contains("is-open")) return;
+        if (e.key === "Escape") close();
+        if (e.key === "ArrowRight") show(idx + 1);
+        if (e.key === "ArrowLeft") show(idx - 1);
+      });
+      lb.addEventListener("touchstart", (e) => { startX = e.touches[0].clientX; }, { passive: true });
+      lb.addEventListener("touchend", (e) => {
+        if (startX === null) return;
+        const dx = e.changedTouches[0].clientX - startX; startX = null;
+        if (Math.abs(dx) > 45) show(idx + (dx < 0 ? 1 : -1));
+      });
+    }
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
